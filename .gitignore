@@ -639,3 +639,7 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/node,webstorm,intellij,jetbrains,visualstudio,visualstudiocode
+.idea/misc.xml
+.idea/modules.xml
+.idea/step-project-notes.iml
+.idea/vcs.xml
