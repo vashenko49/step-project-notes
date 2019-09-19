@@ -4,7 +4,7 @@
   "description": "Создать веб-приложение TO-DO лист (аналог функционала `Заметки` из [Google Keep](https://keep.google.com/)) и разместить его в интернете.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
