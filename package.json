@@ -26,7 +26,6 @@
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.0",
-    "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-if-else": "^1.0.3",
     "gulp-imagemin": "^6.1.0",

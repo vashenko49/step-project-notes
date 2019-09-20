@@ -1,5 +1,4 @@
 let gulp = require('gulp');
-let gulpClean = require('gulp-clean');
 let gulpSass = require('gulp-sass');
 let gulpCleanCss = require('gulp-clean-css');
 let gulpAutoPreFixer = require('gulp-autoprefixer');
@@ -9,7 +8,8 @@ let ifElse = require('gulp-if-else');
 let gulpImageMin = require('gulp-imagemin');
 let nodemon = require('gulp-nodemon');
 
-let isDevelopment = false;
+let isDevelopment = true;
+
 let webPackConfig = {
     output:{
         filename: 'scripts.min.js'
@@ -27,14 +27,14 @@ let webPackConfig = {
 };
 
 gulp.task('client-script',function () {
-    return gulp.src('src/client/js/index.js')
+    return gulp.src('client/js/index.js')
         .pipe(webpack(webPackConfig))
-        .pipe(gulp.dest('build/'))
+        .pipe(gulp.dest('storage/'))
 });
 
 gulp.task('sass',function () {
     return gulp
-        .src('src/client/style/main.scss')
+        .src('client/style/main.scss')
         .pipe(gulpSass())
         .on('error', function (err) {
             console.log(err.toString());
@@ -50,31 +50,33 @@ gulp.task('sass',function () {
             cascade:true
         }))
         .pipe(gulpRename('styles.min.css'))
-        .pipe(gulp.dest('build'))
-});
-
-gulp.task('cleanFolder',function () {
-    return gulp.src('build/*',{read:false})
-        .pipe(gulpClean({force:true}))
+        .pipe(gulp.dest('storage'))
 });
 
 gulp.task('img',function () {
-    return gulp.src('src/client/img/**/*')
+    return gulp.src('client/img/**/*')
         .pipe(ifElse(!Boolean(isDevelopment), gulpImageMin))
-        .pipe(gulp.dest('build/img/'))
+        .pipe(gulp.dest('storage/img/'))
 });
 
 gulp.task('nodemon', function () {
-    nodemon({
-        script: 'src/index.js'
-    }).on('restart', function(){
-        console.log('restarted');
-    })
+    return nodemon({
+        script: 'index.js',
+        ignore: [
+            'storage',
+            'client',
+            'node_modules/',
+            'gulpfile.js',
+            'package.json'
+        ]
+        }).on('restart', function () {
+            console.log('restarted!');
+        });
 });
 
 gulp.task('watcher', function () {
-    gulp.watch("src/client/style/**/*.scss", gulp.series('sass'));
-    gulp.watch('src/client/**/*.js',gulp.series('client-script'))
+    gulp.watch("client/style/**/*.scss", gulp.series('sass'));
+    gulp.watch('client/**/*.js',gulp.series('client-script'))
 });
 
-gulp.task('default',gulp.series('cleanFolder', 'client-script', 'sass', 'img','nodemon'));
+gulp.task('default',gulp.parallel(['client-script', 'sass', 'img', "watcher"],'nodemon'));
