@@ -27,14 +27,14 @@ let webPackConfig = {
 };
 
 gulp.task('client-script',function () {
-    return gulp.src('client/js/index.js')
+    return gulp.src('front/js/index.js')
         .pipe(webpack(webPackConfig))
         .pipe(gulp.dest('storage/'))
 });
 
 gulp.task('sass',function () {
     return gulp
-        .src('client/style/main.scss')
+        .src('front/style/main.scss')
         .pipe(gulpSass())
         .on('error', function (err) {
             console.log(err.toString());
@@ -54,7 +54,7 @@ gulp.task('sass',function () {
 });
 
 gulp.task('img',function () {
-    return gulp.src('client/img/**/*')
+    return gulp.src('front/img/**/*')
         .pipe(ifElse(!Boolean(isDevelopment), gulpImageMin))
         .pipe(gulp.dest('storage/img/'))
 });
@@ -75,8 +75,8 @@ gulp.task('nodemon', function () {
 });
 
 gulp.task('watcher', function () {
-    gulp.watch("client/style/**/*.scss", gulp.series('sass'));
-    gulp.watch('client/**/*.js',gulp.series('client-script'))
+    gulp.watch("front/style/**/*.scss", gulp.series('sass'));
+    gulp.watch('front/**/*.js',gulp.series('client-script'))
 });
 
 gulp.task('default',gulp.parallel(['client-script', 'sass', 'img', "watcher"],'nodemon'));

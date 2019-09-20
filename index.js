@@ -1,10 +1,22 @@
 const express = require('express');
+const mongoClient = require('mongodb').MongoClient;
+const dbConfig = require('./config/db');
+
 const app = express();
 
-console.log('work');
-console.log('work');
+const client = new mongoClient(dbConfig.url,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+);
 
-app.listen(3000, function () {
+client.connect((err, connection) => {
+    
+    app.listen('3000', () => {
+        console.log('We are live!');
+    });
 
-    console.log('connect')
+    // perform actions on the collection object
+    // client.close();
 });
