@@ -1,12 +1,13 @@
-let gulp = require('gulp');
-let gulpSass = require('gulp-sass');
-let gulpCleanCss = require('gulp-clean-css');
-let gulpAutoPreFixer = require('gulp-autoprefixer');
-let gulpRename = require('gulp-rename');
-let webpack = require('webpack-stream');
-let ifElse = require('gulp-if-else');
-let gulpImageMin = require('gulp-imagemin');
-let nodemon = require('gulp-nodemon');
+const gulp = require('gulp');
+const gulpSass = require('gulp-sass');
+const gulpCleanCss = require('gulp-clean-css');
+const gulpAutoPreFixer = require('gulp-autoprefixer');
+const gulpRename = require('gulp-rename');
+const webpack = require('webpack-stream');
+const ifElse = require('gulp-if-else');
+const gulpImageMin = require('gulp-imagemin');
+const nodemon = require('gulp-nodemon');
+const cssmini = require('gulp-minify-css');
 
 let isDevelopment = true;
 
@@ -43,12 +44,13 @@ gulp.task('sass',function () {
         .pipe(gulpCleanCss())
         .pipe(gulpAutoPreFixer([
             'last 15 versions',
-            '> 1%',
+            '> 1%',g
             'ie 8',
             'ie 7'
         ],{
-            cascade:true
+            cascade:false
         }))
+        .pipe(cssmini({keepSpecialComments : 0}))
         .pipe(gulpRename('styles.min.css'))
         .pipe(gulp.dest('storage'))
 });
