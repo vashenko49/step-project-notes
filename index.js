@@ -12,7 +12,10 @@ const client = new mongoClient(dbConfig.url,
 );
 
 client.connect((err, connection) => {
-    
+
+
+    require("./routes/Route")(app, connection);
+
     app.listen('3000', () => {
         console.log('We are live!');
     });
