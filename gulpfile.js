@@ -44,7 +44,7 @@ gulp.task('sass',function () {
         .pipe(gulpCleanCss())
         .pipe(gulpAutoPreFixer([
             'last 15 versions',
-            '> 1%',g
+            '> 1%',
             'ie 8',
             'ie 7'
         ],{
