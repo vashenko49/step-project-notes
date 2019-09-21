@@ -1,4 +1,3 @@
-console.log('client');
-console.log('client');
-console.log("client");
-console.log("client");
+$().ready(function () {
+    
+});
