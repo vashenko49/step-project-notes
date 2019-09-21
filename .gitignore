@@ -1,5 +1,9 @@
 task/**/*
-
+node_modules/**/*
+package-lock.json
+build/**/*
+storage/scripts.min.js
+storage/styles.min.css
 # Created by https://www.gitignore.io/api/node,webstorm,intellij,jetbrains,visualstudio,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=node,webstorm,intellij,jetbrains,visualstudio,visualstudiocode
 
