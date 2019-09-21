@@ -1,0 +1,9 @@
+html
+    include includes/head.pug
+body
+    button.close.text-primary(type="button") &times;
+    h1.text-center.font-weight-normal.text-primary.header Add note
+    form.form-group.px-5
+        input.form-control.input-lg(type='text' placeholder='Name of note')
+        textarea.form-control.input-lg.my-3(rows='3' placeholder='Your thoughts...')
+        button.btn.btn-primary.input-lg(type="submit") Create note

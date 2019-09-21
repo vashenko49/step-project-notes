@@ -4,8 +4,8 @@ const router = express.Router();
 
 
 module.exports.routeNotes = function (db) {
-    router.get('/:id?', function () {
-      
+    router.get('/', function (req, res) {
+        res.render('addNote')
     });
 
 

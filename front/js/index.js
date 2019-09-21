@@ -1,4 +1,5 @@
-console.log('client');
-console.log('client');
-console.log("client");
-console.log("client");
+$().ready(function () {
+    $('.first-button').on('click', function () {
+        $('.animated-icon1').toggleClass('open');
+    });
+});
