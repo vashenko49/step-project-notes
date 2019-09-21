@@ -1,4 +1,10 @@
 @import "variables";
-@import "../../node_modules/bootstrap/scss/bootstrap-reboot";
-@import "../../node_modules/bootstrap/scss/utilities";
-@import "../../node_modules/bootstrap/scss/bootstrap-grid";
+@import "../../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css";
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+button:active, button:focus {
+  outline: none;
+}
+button::-moz-focus-inner {
+  border: 0;
+}
+@import "header";

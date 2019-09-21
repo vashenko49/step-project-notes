@@ -8,7 +8,7 @@ const ifElse = require('gulp-if-else');
 const gulpImageMin = require('gulp-imagemin');
 const nodemon = require('gulp-nodemon');
 const cssmini = require('gulp-minify-css');
-
+const concat = require('gulp-concat');
 let isDevelopment = true;
 
 let webPackConfig = {
@@ -31,6 +31,12 @@ gulp.task('client-script',function () {
     return gulp.src('front/js/index.js')
         .pipe(webpack(webPackConfig))
         .pipe(gulp.dest('storage/'))
+});
+
+gulp.task('libs',function () {
+    return gulp.src(['node_modules/jquery/dist/jquery.min.js', 'node_modules/popper.js/dist/umd/popper.min.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js'])
+        .pipe(concat('libs.js'))
+        .pipe(gulp.dest('storage/'));
 });
 
 gulp.task('sass',function () {
@@ -81,4 +87,4 @@ gulp.task('watcher', function () {
     gulp.watch('front/**/*.js',gulp.series('client-script'))
 });
 
-gulp.task('default',gulp.parallel(['client-script', 'sass', 'img', "watcher"],'nodemon'));
+gulp.task('default',gulp.parallel(['libs','client-script', 'sass', 'img', "watcher"],'nodemon'));
