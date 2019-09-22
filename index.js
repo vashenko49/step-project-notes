@@ -20,6 +20,7 @@ client.connect((err, connection) => {
         console.log('We are live!');
     });
 
+
     // perform actions on the collection object
     // client.close();
 });

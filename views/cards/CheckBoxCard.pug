@@ -1,0 +1,13 @@
+.card(style='width: 18rem;')
+  .card-body
+    h5.card-title #{title}
+     - var data = {array};
+    div
+            each element in data
+                each card,index in element
+                    if card.done==="false"
+                        input(id=index type='checkbox' name=index disabled='')
+                    else
+                        input(id=index type='checkbox' name=index checked='' disabled='')
+                    label(for=index)=card.text
+    include buttonCards.pug

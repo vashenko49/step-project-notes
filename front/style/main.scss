@@ -2,5 +2,9 @@
 @import "../../node_modules/bootstrap/dist/css/bootstrap-reboot.css";
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+.card-link{
+  white-space:nowrap;
+}
+
 @import "header";
 @import "addNote";

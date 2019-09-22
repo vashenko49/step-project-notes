@@ -3,6 +3,6 @@ module.exports = {
     dataBase:'step-project-notes',
     collection:{
         client:'clients',
-        card: "nodes"
+        card: "notes"
     }
 };

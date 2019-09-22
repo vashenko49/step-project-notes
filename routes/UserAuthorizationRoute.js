@@ -13,6 +13,7 @@ module.exports.routeAuthorization = function (db) {
             login: req.body.login,
             password:req.body.password
         };
+
         db.collection(config.collection.client).findOne(client,function (err, result) {
             if(err){
                 res.send('error');
@@ -30,11 +31,14 @@ module.exports.routeAuthorization = function (db) {
         res.render('modalWindowErrorSingUp.pug')
     });
 
+
     router.post('/registration', function (req, res) {
         const  client = {
             login: req.body.login,
             password:req.body.password
         };
+
+
         db.collection(config.collection.client).insertOne(client,(err,result)=>{
             if(err){
                 res.send('error');
