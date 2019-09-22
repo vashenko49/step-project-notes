@@ -10,7 +10,8 @@ export class Authorizatoin {
            }
            return decodeURIComponent(cookie.substring(start, end));
        }else {
-            $("#registration").submit(function (e) {
+           //показываем модалку для входа
+            $("#Login-form").submit(function (e) {
                 e.preventDefault();
                 let dataClient ={
                     login:$('#InputEmail').val(),
@@ -18,15 +19,61 @@ export class Authorizatoin {
                 };
                 $.ajax({
                     type:"POST",
-                    url: `authorization/registration`,
+                    url: `authorization/`,
                     data:dataClient,
                 }).done(function (res) {
-                    console.log(res);
-                    document.cookie = `authorization=${ encodeURIComponent(res)}; max-age=3600`;
-                    window.location.reload();
+                    if (res!=="error"){
+                        document.cookie = `authorization=${ encodeURIComponent(res)}; max-age=3598`;
+                        window.location.reload();
+                    }else {
+                        $.ajax({
+                            type:'GET',
+                            url:`authorization/createalerform`,
+                        }).done(res=> {
+                            $("#login").after(res);
+
+                            $('#repeat-login').click(function () {
+                                window.location.reload();
+                            });
+
+                            $('#login').modal('hide');
+                            $("#error-singup").modal();
+                        })
+
+                    }
                 });
             });
-           $('#regist').modal();
+           $('#login').modal();
+
+           //событие на клик создать аккаунт
+           $("#createAccount").click(function () {
+               //загружаем модулку для регестрации
+               $.ajax({
+                   type:'GET',
+                   url:`authorization/registrationform`,
+               }).done(res=>{
+
+                   $("#login").after(res);
+                   $('#singup-form').submit(function (e) {
+                       e.preventDefault();
+                       let dataClient ={
+                           login:$('#InputEmailSingUp').val(),
+                           password:$('#InputPasswordSingUp').val()
+                       };
+                       $.ajax({
+                           type:"POST",
+                           url: `authorization/registration`,
+                           data:dataClient,
+                       }).done(function (res) {
+                           document.cookie = `authorization=${ encodeURIComponent(res)}; max-age=3599`;
+                           window.location.reload();
+                       });
+                   });
+                   $('#login').modal('hide');
+                   $('#singup').modal();
+               });
+
+           });
 
        }
    }

@@ -1,0 +1,15 @@
+#singup.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true' data-backdrop="false")
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Sing Up
+      .modal-body
+        form#singup-form
+          .form-group
+            label(for='InputEmailSingUp') Email address
+            input#InputEmailSingUp.form-control(type='email' aria-describedby='emailHelp' placeholder='Enter email' required='')
+          .form-group
+            label(for='InputPasswordSingUp') Password
+            input#InputPasswordSingUp.form-control(type='password' placeholder='Password' required='')
+          .modal-footer
+            button.btn.btn-primary(type='submit') Create an Account
