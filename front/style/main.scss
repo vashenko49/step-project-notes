@@ -5,6 +5,9 @@
 .card-link{
   white-space:nowrap;
 }
+.card-link+.card-link {
+  margin: 0 0.75rem 0 0.75rem;
+}
 
 @import "header";
 @import "addNote";

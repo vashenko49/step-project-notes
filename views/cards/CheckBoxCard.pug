@@ -1,8 +1,8 @@
-.card(style='width: 18rem;')
-  .card-body
+.card.m-3
+  .card-body(id=id_card)
     h5.card-title #{title}
      - var data = {array};
-    div
+    div#checkbox
             each element in data
                 each card,index in element
                     if card.done==="false"
