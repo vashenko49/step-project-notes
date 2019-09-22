@@ -1,13 +1,15 @@
 .card.m-3
-  .card-body(id=id_card)
+  .card-body
     h5.card-title #{title}
      - var data = {array};
-    div#checkbox
+    div#checkbox.d-flex.flex-column
             each element in data
                 each card,index in element
-                    if card.done==="false"
-                        input(id=index type='checkbox' name=index disabled='')
-                    else
-                        input(id=index type='checkbox' name=index checked='' disabled='')
-                    label(for=index)=card.text
-    include buttonCards.pug
+                    div.form-check
+                        if card.done==="false"
+                            input.form-check-input(id=index type='checkbox' name=index disabled='')
+                        else
+                            input.form-check-input(id=index type='checkbox' name=index checked='' disabled='')
+                        label.form-check-label(for=index)=card.text
+    div.buttonCards.d-flex.flex-wrap.justify-content-center(id=id_card, data-type=typeCard)
+        include buttonCards.pug

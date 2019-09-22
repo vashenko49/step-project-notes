@@ -13,14 +13,11 @@ const client = new mongoClient(dbConfig.url,
 
 client.connect((err, connection) => {
 
-
     require("./routes/Route")(app, connection.db(dbConfig.dataBase));
 
     app.listen('3000', () => {
-        console.log('We are live!');
+        console.log('turn on!');
     });
 
-
-    // perform actions on the collection object
     // client.close();
 });

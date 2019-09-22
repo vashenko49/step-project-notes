@@ -1,18 +1,14 @@
 import {Authorizatoin} from "./modules/Authorizatoin";
 import {Services} from "./modules/Services";
+import {Card} from "./modules/Card";
+
 
 $().ready(function () {
 
-    $('#logout').click(function (e) {
-        document.cookie="authorization=0; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        window.location.reload();
-    });
-
-    $('.first-button').on('click', function () {
-        $('.animated-icon1').toggleClass('open');
-    });
+    $('#logout').click(Services.LogOut);
     let authorization = new Authorizatoin();
-    let idClient ;
+    let idClient;
+
     authorization.CheckCookie('authorization')
         .then(function (res,rej) {
             idClient = res;
@@ -22,6 +18,6 @@ $().ready(function () {
                 })
         });
 
-
+    $(document).on('click',".buttonCards", Card.eventOnButton);
 
 });

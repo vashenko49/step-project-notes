@@ -1,5 +1,6 @@
 .card.m-3
-  .card-body(id=id_card)
+  .card-body
     h4.card-title=title
     p.card-text=text
-    include buttonCards.pug
+    div.buttonCards.d-flex.flex-wrap.justify-content-center(id=id_card, data-type=typeCard)
+        include buttonCards.pug
