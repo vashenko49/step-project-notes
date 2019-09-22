@@ -8,7 +8,6 @@ const render = require('../views/renderCards');
 
 module.exports.getcards = function (db) {
     router.post('/all', function (req,res) {
-        console.log(req.body["id_client"]);
         db.collection(config.collection.card).find({"id_client":req.body["id_client"]}).toArray(function (err, result) {
             let cards='';
             if(Array.isArray(result)){
@@ -24,7 +23,6 @@ module.exports.getcards = function (db) {
             }
             res.send(cards)
         });
-
     });
     return router;
 };
