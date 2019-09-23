@@ -81,4 +81,20 @@ export class Authorizatoin {
            }
        });
    }
+    static GetIdClient(){
+        let cookie = document.cookie;
+        const authori = 'authorization=';
+        let pos = cookie.indexOf(authori);
+        if (pos>=0) {
+            let start = pos + authori.length;
+            let end = cookie.indexOf(';', start);
+            if (end < 0) {
+                end = cookie.length;
+            }
+            let id = cookie.substring(start, end);
+            return decodeURIComponent(id)
+        }else {
+            return;
+        }
+    }
 }
