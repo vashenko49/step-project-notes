@@ -1,9 +1,15 @@
 html
     include includes/head.pug
 body
-    button.close.text-primary(type="button") &times;
-    h1.text-center.font-weight-normal.text-primary.header Add note
-    form.form-group.px-5
-        input.form-control.input-lg(type='text' placeholder='Name of note')
-        textarea.form-control.input-lg.my-3(rows='3' placeholder='Your thoughts...')
-        button.btn.btn-primary.input-lg(type="submit") Create note
+    include modalWindowLogin.pug
+    include includes/header.pug
+    h1.text-center.font-weight-normal Add new notes
+    form.px-5
+      .form-group
+        label(for='title') Name of note
+        input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note')
+      .form-group
+        label(for='text') Example textarea
+        textarea#text.form-control(rows='3')
+      button.btn.btn-primary(type='submit') Submit
+    include includes/footer.pug

@@ -1,11 +1,13 @@
 @import "variables";
-@import "../../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css";
+@import "../../node_modules/bootstrap/dist/css/bootstrap-reboot.css";
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-button:active, button:focus {
-  outline: none;
+
+.card-link{
+  white-space:nowrap;
 }
-button::-moz-focus-inner {
-  border: 0;
+.card-link+.card-link {
+  margin: 0 0.75rem 0 0.75rem;
 }
+
 @import "header";
 @import "addNote";
