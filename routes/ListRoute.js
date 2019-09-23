@@ -4,10 +4,9 @@ const router = express.Router();
 
 
 module.exports.routeList = function (db) {
-    router.get('/:id?', function () {
-
+    router.get('/', function (req, res) {
+        res.render('addList')
     });
-
 
     return router;
 };
@@ -17,7 +16,6 @@ module.exports.routeAPIList = function (db) {
     router.get('/:id?', function () {
 
     });
-
 
     return router;
 };

@@ -1,6 +1,7 @@
 import {Authorizatoin} from "./modules/Authorizatoin";
 import {Services} from "./modules/Services";
 import {Card} from "./modules/Card";
+import {CreateList} from "./modules/CreateList"
 import {UsuallCard} from "./modules/UsuallCard";
 import {CheckBoxCard} from "./modules/CheckBoxCard";
 
@@ -20,6 +21,8 @@ $().ready(function () {
                 })
         });
 
+    $(document).on('click',"#addNewItemList", CreateList.addItemList);
+    $(document).on('click',"#removeItemList", CreateList.removeItemList);
 
     $(document).on('click',".UsuallCard .remove-card", UsuallCard.RemoveUsualCard);
     $(document).on('click',".UsuallCard .change-card", UsuallCard.ChangeUsualCard);
