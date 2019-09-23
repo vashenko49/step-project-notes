@@ -1,6 +1,7 @@
 import {Authorizatoin} from "./modules/Authorizatoin";
 import {Services} from "./modules/Services";
 import {Card} from "./modules/Card";
+import { CreateList } from "./modules/CreateList"
 
 
 $().ready(function () {
@@ -19,5 +20,8 @@ $().ready(function () {
         });
 
     $(document).on('click',".buttonCards", Card.eventOnButton);
+
+    $(document).on('click',"#addNewItemList", CreateList.addItemList);
+    $(document).on('click',"#removeItemList", CreateList.removeItemList);
 
 });

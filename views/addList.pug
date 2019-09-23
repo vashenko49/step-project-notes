@@ -10,10 +10,10 @@ body
         input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note')
       .form-group
         label(for='text') Example list
-        .input-group
+        .input-group.dynamic-form-input
             input.form-control(name='fields[]' type='text' placeholder='Add new item')
             span.input-group-append
-                button.btn.btn-primary.btn-add(type='button')
+                button.btn.btn-primary.btn-add(type='button' id="addNewItemList")
                     span.fa.fa-plus
       button.btn.btn-primary(type='submit') Submit
     include includes/footer.pug
