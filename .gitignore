@@ -647,3 +647,6 @@ MigrationBackup/
 .idea/modules.xml
 .idea/step-project-notes.iml
 .idea/vcs.xml
+
+# GitPod
+.gitpod.yml

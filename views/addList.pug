@@ -1,0 +1,19 @@
+html
+    include includes/head.pug
+body
+    include modalWindowLogin.pug
+    include includes/header.pug
+    h1.text-center.font-weight-normal Add new list
+    form.px-5
+      .form-group
+        label(for='title') Name of list
+        input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note')
+      .form-group
+        label(for='text') Example list
+        .input-group
+            input.form-control(name='fields[]' type='text' placeholder='Add new item')
+            span.input-group-append
+                button.btn.btn-primary.btn-add(type='button')
+                    span.fa.fa-plus
+      button.btn.btn-primary(type='submit') Submit
+    include includes/footer.pug
