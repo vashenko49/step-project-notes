@@ -7,9 +7,13 @@
                 each card,index in element
                     div.form-check
                         if card.done==="false"
-                            input.form-check-input(id=index type='checkbox' name=index disabled='')
-                        else
-                            input.form-check-input(id=index type='checkbox' name=index checked='' disabled='')
-                        label.form-check-label(for=index)=card.text
+                            input.form-check-input(id=index type='checkbox' name=index)
+                            label.form-check-label(for=index)=card.text
+            each element in data
+                each card,index in element
+                    div.form-check
+                        if card.done==="true"
+                            input.form-check-input(id=index type='checkbox' name=index checked='')
+                            label.form-check-label(for=index)=card.text
     div.buttonCards.d-flex.flex-wrap.justify-content-center(id=id_card, class=typeCard)
         include buttonCards.pug
