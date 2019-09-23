@@ -1,6 +1,8 @@
 import {Authorizatoin} from "./modules/Authorizatoin";
 import {Services} from "./modules/Services";
 import {Card} from "./modules/Card";
+import {UsuallCard} from "./modules/UsuallCard";
+import {CheckBoxCard} from "./modules/CheckBoxCard";
 
 
 $().ready(function () {
@@ -18,6 +20,12 @@ $().ready(function () {
                 })
         });
 
-    $(document).on('click',".buttonCards", Card.eventOnButton);
 
+    $(document).on('click',".UsuallCard .remove-card", UsuallCard.RemoveUsualCard);
+    $(document).on('click',".UsuallCard .change-card", UsuallCard.ChangeUsualCard);
+    $(document).on('click',".UsuallCard .more-information", UsuallCard.MoreUsualCard);
+    //
+    $(document).on('click',".CheckBoxCard .remove-card", CheckBoxCard.RemoveCheckBoxCard);
+    $(document).on('click',".CheckBoxCard .change-card", CheckBoxCard.ChangeCheckBoxCard);
+    $(document).on('click',".CheckBoxCard .more-information", CheckBoxCard.MoreCheckBoxCard);
 });

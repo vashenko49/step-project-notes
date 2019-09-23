@@ -1,9 +1,9 @@
 export class Card {
-    constructor(title="Empty",is_img=false){
-        this.title = title;
-        this.is_img = is_img;
+    static removeCard(id){
+        $(`#${id}`).parent().parent().remove();
     }
-    static eventOnButton(event){
+
+}
         let $target = $(event.target);
         let type = $target.attr('data-typeBtn').toUpperCase();
         if(type){
