@@ -53,7 +53,7 @@ export class CheckBoxCard  extends Card{
         $('.dynamic-form-input').each(function(index) {
             sendData.data.check_box.push({
                 text: $(this).find('[name="itemList"').val(),
-                done: $(this).find('[type="checkbox"]').attr('checked') ? true : false
+                done: $(this).find('[type="checkbox"]').prop('checked') ? true : false
             })
         });
 

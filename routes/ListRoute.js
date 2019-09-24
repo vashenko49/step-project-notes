@@ -92,7 +92,49 @@ module.exports.routeAPIList = function (db) {
     });
 
     router.put('/:id?', function(req, res){
-        console.log(req.body.data)
+        const id = req.params.id;
+        if (!id) {
+            res.status(404)
+            res.send("id is required");
+        } else {
+
+            const filterDb = { _id: ObjectID(id) };
+            db.collection(config.collection.card).findOne(filterDb, function (err, result) {
+                if (err) {
+                    res.status(404)
+                    res.send('error select mongo');
+                } else {
+                    
+                    if (result) {
+                        const updData =  {
+                            $set: {
+                                    "data.title": req.body.data.title,
+                                    "data.check_box": req.body.data.check_box
+                                }
+                        }
+                        db.collection(config.collection.card).updateMany(filterDb, updData ,function(err, result) {
+                            if (err) {
+                                res.status(404)
+                                res.send('error select mongo');
+                            } else {
+                                
+                                if (result) {
+                                    res.sendStatus(200);
+
+                                } else {
+                                    res.status(404)
+                                    res.send("id not found");
+                                }
+                            }
+                        })
+
+                    } else {
+                        res.status(404)
+                        res.send("id not found");
+                    }
+                }
+            })
+        }
     });
 
     router.delete('/:id?', function (req, res) {
