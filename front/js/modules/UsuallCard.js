@@ -25,7 +25,16 @@ export class UsuallCard extends Card{
     }
 
     static RemoveUsualCard(event){
-        console.log('usual rem');
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/notes/' + window.location.pathname.split('/')[2]
+        })
+            .done(function(res){
+            window.location = '/';
+        })
+            .fail(function(err) {
+            throw new Error(err);
+        })
     }
     static MoreUsualCard(event){
         window.location.href = 'notes/' + event.target.parentElement.id
