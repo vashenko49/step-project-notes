@@ -15,5 +15,5 @@
                         if card.done==="true"
                             input.form-check-input(id=index type='checkbox' name=index checked='')
                             label.form-check-label(for=index)=card.text
-    div.buttonCards.d-flex.flex-wrap.justify-content-center(id=id_card, class=typeCard)
+    div.buttonCards.d-flex.flex-wrap.justify-content-end(id=id_card, class=typeCard)
         include buttonCards.pug

@@ -15,7 +15,7 @@ client.connect((err, connection) => {
 
     require("./routes/Route")(app, connection.db(dbConfig.dataBase));
 
-    app.listen('3000', () => {
+    app.listen('3030', () => {
         console.log('turn on!');
     });
 
