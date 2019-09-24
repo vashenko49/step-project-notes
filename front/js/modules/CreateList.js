@@ -1,3 +1,5 @@
+import { Authorizatoin } from './Authorizatoin';
+
 export class CreateList {
 
     static addItemList (event) {
@@ -9,10 +11,10 @@ export class CreateList {
 
         newField.find('input').val('');
         newField.find('.btn-add')
-        .attr("id", 'removeItemList')
-        .removeClass('btn-add').addClass('btn-remove')
-        .removeClass('btn-primary').addClass('btn-danger')
-        .html('<span class="fa fa-minus"></span>');
+            .attr("id", 'removeItemList')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-primary').addClass('btn-danger')
+            .html('<span class="fa fa-minus"></span>');
     }
 
     static removeItemList (event) {
@@ -21,7 +23,39 @@ export class CreateList {
         $(this).parents('.dynamic-form-input').remove();
     }
 
-    static createListCard () {
+    static createListCard (event) {
+        event.preventDefault();
+
+        const sendData = {
+            id_client: Authorizatoin.GetIdClient(),
+            data: {
+                title: '',
+                check_box: []
+            }
+        };
+        
+        const form = $(this).parent('form');
+        $(form).find('input').each(function() {
+            const input = $(this);
+            if (input.attr('name').toLowerCase() === 'title') {
+                sendData.data.title = input.val();
+            } else if (input.val().length > 0) {
+                sendData.data.check_box.push({
+                    text: input.val(),
+                    done: 'false'
+                })
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: `/api/list/`,
+            data: sendData
+        }).done(function(res) {
+            window.location = '/';
+        }).fail(function(err) {
+            throw new Error(err);
+        })
 
     }
 }
