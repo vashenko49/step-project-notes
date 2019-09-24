@@ -10,7 +10,7 @@ module.exports.routeNotes = function (db) {
 
     router.get('/:id', function (req, res) {
         db.collection(config.collection.card)
-            .findOne({id_client: '5d853cef48edfa7cb3b68e22'}, function (err, note) {
+            .findOne({_id: ObjectID(req.params.id)}, function (err, note) {
                 if (err) {
                     console.log(err);
                 } else {
