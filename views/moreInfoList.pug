@@ -13,15 +13,13 @@ body
             each elem in check_box
                 if elem.done == 'false'
                     .input-group.dynamic-form-input
-                        .form-check
-                            input.form-check-input(id=index type='checkbox' name=index checked=false disabled)
-                            input.form-control(name='itemList' type='text' placeholder='Add new item' value=elem.text disabled)
+                        input.form-check-input(id=index type='checkbox' name=index checked=false disabled)
+                        input.form-control(name='itemList' type='text' placeholder='Add new item' value=elem.text disabled)
             each elem in check_box
                 if elem.done == 'true'
                     .input-group.dynamic-form-input
-                        .form-check
-                            input.form-check-input(id=index type='checkbox' name=index checked=true disabled)
-                            input.form-control(name='itemList' type='text' placeholder='Add new item' value=elem.text disabled)
-        button.btn.btn-warning(type='submit' id="btnDetailChangeList") Change list
+                        input.form-check-input(id=index type='checkbox' name=index checked=true disabled)
+                        input.form-control(name='itemList' type='text' placeholder='Add new item' value=elem.text disabled)
+        button.btn.btn-warning.mr-2(type='submit' id="btnDetailChangeList") Change list
         button.btn.btn-danger(id="btnDetailRemoveList") Delete list
     include includes/footer.pug
