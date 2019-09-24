@@ -6,11 +6,16 @@ export class UsuallCard extends Card{
         console.log('usual rem');
     }
     static MoreUsualCard(event){
-        console.log('usual more');
-
+        window.location.href = 'notes/' + event.target.parentElement.id
     }
     static ChangeUsualCard(event){
-        console.log('usual change');
+        event.preventDefault();
 
+        event.target.classList.toggle('btn-warning');
+        event.target.classList.toggle('btn-primary');
+        event.target.innerText = 'Submit changes';
+
+        $('#title').prop('disabled', false);
+        $('#text').prop('disabled', false);
     }
 }
