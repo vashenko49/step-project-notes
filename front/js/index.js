@@ -13,7 +13,7 @@ $().ready(function () {
     let idClient;
     $("#home-nav-link").click(Services.homeNavLink);
     $("#createusual-card-nav-link").click(Services.createUsualCardNavLink);
-    $("#createcheckbox-card-nav-link").click(Services.createUsualCardNavLink);
+    $("#createcheckbox-card-nav-link").click(Services.createCheckBoxСardNavLink);
 
     authorization.CheckCookie('authorization')
         .then(function (res,rej) {

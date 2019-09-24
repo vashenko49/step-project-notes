@@ -91,6 +91,10 @@ module.exports.routeAPIList = function (db) {
         }
     });
 
+    router.put('/:id?', function(req, res){
+
+    });
+
     router.delete('/:id?', function (req, res) {
         const id = req.params.id;
         if (!id) {

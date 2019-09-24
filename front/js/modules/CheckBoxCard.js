@@ -57,13 +57,14 @@ export class CheckBoxCard  extends Card{
             })
         });
 
-        console.log(sendData)
-
-
         $.ajax({
             type: 'PUT',
             url: `/api/list/${window.location.pathname.split('/')[2]}`,
             data: sendData
+        }).done(function(res){
+            window.location = '/';
+        }).fail(function(err) {
+            throw new Error(err);
         })
     }
 }
