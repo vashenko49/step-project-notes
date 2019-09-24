@@ -14,8 +14,14 @@ module.exports.getcards = function (db) {
                 if(result.length>0){
                     result.forEach(element=>{
                         if(element.type.toUpperCase()==="UsuallCard".toUpperCase()){
-                            cards+=render.renderUsualCard(element['_id'],element.data.title,element.data.text.length<100?element.data.text:(element.data.text.substring(0,100)+"..."),element.type);
-                        }else {
+                            cards+=render.renderUsualCard(
+                                element['_id'],
+                                element.data.title,
+                                element.data.text.length < 100
+                                    ? element.data.text
+                                    : (element.data.text.substring(0,100)+"..."), element.type
+                            );
+                        } else {
                             cards+=render.renderCheckBox(element['_id'],element.data.title,element.data.check_box,element.type);
                         }
                     })

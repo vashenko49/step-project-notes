@@ -38,11 +38,11 @@ module.exports.routeAPINotes = function (db) {
                     if (result) {
                         const insertObj = {
                             id_client: req.body.id_client,
-                            type: 'UsualCard',
+                            type: 'UsuallCard',
                             data: {
                                 title: req.body.data.title || '',
                                 is_img: req.body.data.is_img || false,
-                                check_box: req.body.data.text
+                                text: req.body.data.text
                             }
                         };
 

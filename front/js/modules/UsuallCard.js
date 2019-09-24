@@ -5,28 +5,15 @@ export class UsuallCard extends Card{
     static createUsualNote(event) {
         event.preventDefault();
 
-        const sendData = {
-            id_client: Authorizatoin.GetIdClient(),
-            data: {
-                title: '',
-                text: ''
-            }
-        };
-
-        const form = $(this).parent('form');
-        $(form).find('input').each(function() {
-            const input = $(this);
-            if (input.id === 'title') {
-                sendData.data.title = input.value;
-            } else if (input.id === 'text') {
-                sendData.data.text = input.value
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
+        $.post({
             url: '/api/notes',
-            data: sendData
+            data: {
+                id_client: Authorizatoin.GetIdClient(),
+                data: {
+                    title: $('#title').val(),
+                    text: $('#text').val()
+                }
+            }
         })
             .done(function(res) {
             window.location = '/';
