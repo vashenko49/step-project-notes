@@ -11,7 +11,7 @@ const cssmini = require('gulp-minify-css');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 
-let isDevelopment = false;
+let isDevelopment = true;
 
 let webPackConfig = {
     output:{

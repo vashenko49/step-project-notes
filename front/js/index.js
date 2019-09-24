@@ -11,6 +11,9 @@ $().ready(function () {
     $('#logout').click(Services.LogOut);
     let authorization = new Authorizatoin();
     let idClient;
+    $("#home-nav-link").click(Services.homeNavLink);
+    $("#createusual-card-nav-link").click(Services.createUsualCardNavLink);
+    $("#createcheckbox-card-nav-link").click(Services.createUsualCardNavLink);
 
     authorization.CheckCookie('authorization')
         .then(function (res,rej) {
@@ -20,6 +23,9 @@ $().ready(function () {
                     $('#board').append(res);
                 })
         });
+
+
+
 
     $(document).on('click',"#addNewItemList", CreateList.addItemList);
     $(document).on('click',"#removeItemList", CreateList.removeItemList);
