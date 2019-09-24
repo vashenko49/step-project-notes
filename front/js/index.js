@@ -23,6 +23,8 @@ $().ready(function () {
 
     $(document).on('click',"#addNewItemList", CreateList.addItemList);
     $(document).on('click',"#removeItemList", CreateList.removeItemList);
+    $(document).on('click',"#btnCreateListForm", CreateList.createListCard);
+
 
     $(document).on('click',".UsuallCard .remove-card", UsuallCard.RemoveUsualCard);
     $(document).on('click',".UsuallCard .change-card", UsuallCard.ChangeUsualCard);
