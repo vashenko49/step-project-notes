@@ -1,6 +1,28 @@
 import {Card} from "./Card";
+import {Authorizatoin} from "./Authorizatoin";
 
 export class UsuallCard extends Card{
+    static createUsualNote(event) {
+        event.preventDefault();
+
+        $.post({
+            url: '/api/notes',
+            data: {
+                id_client: Authorizatoin.GetIdClient(),
+                data: {
+                    title: $('#title').val(),
+                    text: $('#text').val()
+                }
+            }
+        })
+            .done(function(res) {
+            window.location = '/';
+        })
+            .fail(function(err) {
+            throw new Error(err);
+        })
+
+    }
 
     static RemoveUsualCard(event){
         console.log('usual rem');

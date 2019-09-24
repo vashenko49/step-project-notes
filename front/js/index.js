@@ -33,6 +33,7 @@ $().ready(function () {
 
 
     $(document).on('click',".UsuallCard .more-information", UsuallCard.MoreUsualCard);
+    $(document).on('click',"#btnAddNote", UsuallCard.createUsualNote);
     $(document).on('click',"#btnDetailViewChange", UsuallCard.ChangeUsualCard);
     $(document).on('click',"#btnDetailViewDelete", UsuallCard.RemoveUsualCard);
     //
