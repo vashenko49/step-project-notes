@@ -10,7 +10,7 @@ module.exports.routeNotes = function (db) {
 
     router.get('/:id', function (req, res) {
         db.collection(config.collection.card)
-            .findOne({"_id": new ObjectID(req.params.id)}, function (err, note) {
+            .findOne({_id: ObjectID(req.params.id)}, function (err, note) {
                 if (err) {
                     console.log(err);
                 } else {
