@@ -27,10 +27,6 @@ $().ready(function () {
 
 
     $(document).on('click',".UsuallCard .more-information", UsuallCard.MoreUsualCard);
-    $(document).on('click',"#btnDetailViewChange", UsuallCard.ChangeUsualCard);
-    $(document).on('click',"#btnDetailViewDelete", UsuallCard.RemoveUsualCard);
     //
-    $(document).on('click',".CheckBoxCard .remove-card", CheckBoxCard.RemoveCheckBoxCard);
-    $(document).on('click',".CheckBoxCard .change-card", CheckBoxCard.ChangeCheckBoxCard);
     $(document).on('click',".CheckBoxCard .more-information", CheckBoxCard.MoreCheckBoxCard);
 });
