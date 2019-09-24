@@ -6,8 +6,7 @@ export class UsuallCard extends Card{
         console.log('usual rem');
     }
     static MoreUsualCard(event){
-        console.log('usual more');
-
+        window.location.href = 'notes/' + event.target.parentElement.id
     }
     static ChangeUsualCard(event){
         console.log('usual change');
