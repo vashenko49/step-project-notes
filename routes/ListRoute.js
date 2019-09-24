@@ -65,5 +65,46 @@ module.exports.routeAPIList = function (db) {
         }
     });
 
+    router.delete('/:id?', function (req, res) {
+        const id = req.params.id;
+        if (!id) {
+            res.status(404)
+            res.send("id is required");
+        } else {
+
+            const filterDb = { _id: ObjectID(id) };
+            db.collection(config.collection.card).findOne(filterDb, function (err, result) {
+                if (err) {
+                    res.status(404)
+                    res.send('error select mongo');
+                } else {
+                    
+                    if (result) {
+                        console.log(result)
+                        db.collection(config.collection.card).remove(result, function(err, result) {
+                            if (err) {
+                                res.status(404)
+                                res.send('error select mongo');
+                            } else {
+                                
+                                if (result) {
+                                    res.send(200);
+
+                                } else {
+                                    res.status(404)
+                                    res.send("id not found");
+                                }
+                            }
+                        })
+
+                    } else {
+                        res.status(404)
+                        res.send("id not found");
+                    }
+                }
+            })
+        }
+    });
+
     return router;
 };
