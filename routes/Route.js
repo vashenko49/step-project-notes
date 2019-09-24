@@ -33,6 +33,7 @@ module.exports = function (app, database) {
     app.use('/api/notes', notes.routeAPINotes(database));
     app.use('/list/authorization', authorization.routeAuthorization(database));
     app.use('/api/list/authorization', authorization.routeAuthorization(database));
+    app.use('/list', express.static('storage'));
     app.use('/list', list.routeList(database));
     app.use('/api/list', list.routeAPIList(database));
 
