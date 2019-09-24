@@ -159,7 +159,7 @@ module.exports.routeAPIList = function (db) {
                             } else {
                                 
                                 if (result) {
-                                    res.send(200);
+                                    res.sendStatus(200);
 
                                 } else {
                                     res.status(404)
