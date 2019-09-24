@@ -17,7 +17,6 @@ module.exports.routeNotes = function (db) {
                     res.render('moreInfoNote', {title: note.data.title, text: note.data.text})
                 }
             });
-
     });
 
     return router;
