@@ -9,6 +9,32 @@ module.exports.routeList = function (db) {
         res.render('addList');
     });
 
+    router.get('/:id', function (req, res) {
+        const id = req.params.id;
+        if (!id) {
+            res.status(404)
+            res.send("id is required");
+        } else {
+
+            const filterDb = { _id: ObjectID(id) };
+            db.collection(config.collection.card).findOne(filterDb, function (err, result) {
+                if (err) {
+                    res.status(404)
+                    res.send('error select mongo');
+
+                } else {
+                    if (result) {
+                        res.render('moreInfoList', {title: result.data.title, check_box: result.data.check_box});
+
+                    } else {
+                        res.status(404)
+                        res.send("id not found");
+                    }
+                }
+            })
+        }
+    });
+
     return router;
 };
 
@@ -80,7 +106,6 @@ module.exports.routeAPIList = function (db) {
                 } else {
                     
                     if (result) {
-                        console.log(result)
                         db.collection(config.collection.card).remove(result, function(err, result) {
                             if (err) {
                                 res.status(404)
