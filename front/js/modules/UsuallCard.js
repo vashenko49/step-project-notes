@@ -9,7 +9,13 @@ export class UsuallCard extends Card{
         window.location.href = 'notes/' + event.target.parentElement.id
     }
     static ChangeUsualCard(event){
-        console.log('usual change');
+        event.preventDefault();
 
+        event.target.classList.toggle('btn-warning');
+        event.target.classList.toggle('btn-primary');
+        event.target.innerText = 'Submit changes';
+
+        $('#title').prop('disabled', false);
+        $('#text').prop('disabled', false);
     }
 }
