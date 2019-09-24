@@ -33,4 +33,5 @@ $().ready(function () {
     $(document).on('click',".CheckBoxCard .more-information", CheckBoxCard.MoreCheckBoxCard);
     $(document).on('click',"#btnDetailRemoveList", CheckBoxCard.RemoveCheckBoxCard);
     $(document).on('click',"#btnDetailChangeList", CheckBoxCard.ChangeCheckBoxCard);
+    $(document).on('click',"#submitBtnDetailChangeList", CheckBoxCard.SubmitChangeCheckBoxCard);
 });
