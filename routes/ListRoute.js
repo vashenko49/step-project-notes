@@ -92,7 +92,7 @@ module.exports.routeAPIList = function (db) {
     });
 
     router.put('/:id?', function(req, res){
-
+        console.log(req.body.data)
     });
 
     router.delete('/:id?', function (req, res) {
