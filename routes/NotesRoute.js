@@ -72,6 +72,44 @@ module.exports.routeAPINotes = function (db) {
         }
     });
 
+    router.put('/:id?', function (req, res) {
+        const id = req.params.id;
+        db.collection(config.collection.card)
+            .findOne({ _id: ObjectID(id) }, function (err, result) {
+                if (err) {
+                    res.send('selecting error in mongodb');
+                } else {
+                    if (result) {
+                        const updateObj = {
+                            $set: {
+                                "data.title": req.body.data.title,
+                                "data.text": req.body.data.text
+                            }
+                        };
+
+                        db.collection(config.collection.card)
+                            .updateOne({ _id: ObjectID(id) }, updateObj, (err, result) => {
+                                if (err){
+                                    res.status(404);
+                                    res.send('updating error in mongodb');
+                                } else {
+                                    if (result) {
+                                        res.sendStatus(200);
+                                    } else {
+                                        res.status(404);
+                                        res.send("id not found while updating");
+                                    }
+                                }
+                            })
+
+                    } else {
+                        res.status(404);
+                        res.send("id not found");
+                    }
+                }
+            })
+    });
+
     router.delete('/:id?', function (req, res) {
         const id = req.params.id;
         db.collection(config.collection.card)
