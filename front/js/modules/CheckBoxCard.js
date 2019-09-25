@@ -51,20 +51,34 @@ export class CheckBoxCard  extends Card{
         }
 
         $('.dynamic-form-input').each(function(index) {
-            sendData.data.check_box.push({
-                text: $(this).find('[name="itemList"').val(),
-                done: $(this).find('[type="checkbox"]').prop('checked') ? true : false
-            })
+            if ( $(this).find('[name="itemList"').val().length > 0 ) {
+                sendData.data.check_box.push({
+                    text: $(this).find('[name="itemList"').val(),
+                    done: $(this).find('[type="checkbox"]').prop('checked') ? true : false
+                })
+            }
         });
 
-        $.ajax({
-            type: 'PUT',
-            url: `/api/list/${window.location.pathname.split('/')[2]}`,
-            data: sendData
-        }).done(function(res){
-            window.location = '/';
-        }).fail(function(err) {
-            throw new Error(err);
-        })
+        if (sendData.data.check_box.length > 0 ) {
+            $.ajax({
+                type: 'PUT',
+                url: `/api/list/${window.location.pathname.split('/')[2]}`,
+                data: sendData
+            }).done(function(res){
+                window.location = '/';
+            }).fail(function(err) {
+                throw new Error(err);
+            })
+        } else {
+            $('input[name="itemList"').each(function(){
+                $(this)
+                .attr({
+                    'data-toggle':'popover',
+                    'data-placement':'bottom',
+                    'data-content':'must be required'
+                })
+                .popover('show');
+            });
+        }
     }
 }
