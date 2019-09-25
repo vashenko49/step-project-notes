@@ -10,7 +10,7 @@ export class Authorizatoin {
                    end=cookie.length;
                }
                let id = cookie.substring(start, end);
-               // document.cookie = `authorization=${id}; max-age=3599`;
+               document.cookie = `authorization=${id}; max-age=3599; path=/`;
                resolve(decodeURIComponent(id));
            }else {
                //показываем модалку для входа
