@@ -15,7 +15,9 @@ client.connect((err, connection) => {
 
     require("./routes/Route")(app, connection.db(dbConfig.dataBase));
 
-    app.listen('3030', () => {
+    let port = process.env.PORT || 3030;
+
+    app.listen(port, () => {
         console.log('turn on!');
     });
 

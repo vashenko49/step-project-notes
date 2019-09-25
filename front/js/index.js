@@ -8,7 +8,7 @@ import {CheckBoxCard} from "./modules/CheckBoxCard";
 
 $().ready(function () {
 
-    $('#logout').click(Services.LogOut);
+    $('#logout').click(Authorizatoin.LogOut);
     let authorization = new Authorizatoin();
     let idClient;
     $("#home-nav-link").click(Services.homeNavLink);
