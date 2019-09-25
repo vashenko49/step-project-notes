@@ -25,6 +25,10 @@ module.exports.routeNotes = function (db) {
 
 module.exports.routeAPINotes = function (db) {
     router.post('/', function (req, res) {
+
+        console.log(req.body);
+
+
         const id_client = req.body.id_client;
         const text = req.body.data.text;
 

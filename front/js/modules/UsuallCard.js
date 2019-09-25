@@ -5,32 +5,56 @@ export class UsuallCard extends Card{
     static createUsualNote(event) {
         event.preventDefault();
 
-        if ($('#text').val()) {
-            $.post({
-                url: '/api/notes',
-                data: {
-                    id_client: Authorizatoin.GetIdClient(),
-                    data: {
-                        title: $('#title').val(),
-                        text: $('#text').val()
-                    }
-                }
-            })
-                .done(function(res) {
-                    window.location = '/';
-                })
-                .fail(function(err) {
-                    throw new Error(err);
-                })
-        } else {
-            $('#text')
-                    .attr({
-                        'data-toggle':'popover',
-                        'data-placement':'top',
-                        'data-content':'must be required'
+        
+        var data = new FormData();
+        $.each( files, function( key, value ){
+            data.append( key, value );
+        });
+
+        let name = document.getElementById("FormControlFile").files[0].name;
+        let form_data = new FormData();
+        let ext = name.split('.').pop().toLowerCase();
+        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) === -1)
+        {
+            alert("Invalid Image File");
+        }else {
+
+            let oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("FormControlFile").files[0]);
+            let f = document.getElementById("FormControlFile").files[0];
+            let fsize = f.size||f.fileSize;
+            if(fsize > 2000000)
+            {
+                alert("Image File Size is very big");
+            }else {
+                form_data.append("file", document.getElementById('FormControlFile').files[0]);
+
+                if ($('#text').val()) {
+                    $.post({
+                        url: '/api/notes',
+                        data: new FormData(this)
                     })
-                    .popover('show');
+                        .done(function(res) {
+                            window.location = '/';
+                        })
+                        .fail(function(err) {
+                            throw new Error(err);
+                        })
+                } else {
+                    $('#text')
+                            .attr({
+                                'data-toggle':'popover',
+                                'data-placement':'top',
+                                'data-content':'must be required'
+                            })
+                            .popover('show');
+                }
+
+            }
         }
+
+
+
     }
 
     static RemoveUsualCard(event){
