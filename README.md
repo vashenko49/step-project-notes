@@ -3,6 +3,15 @@
     - Sergey Vashchenko
     - Ramazan Khanbabaev
     - Roman Loboda
+    
+### Ссылка на [Heroku](https://step-app-notes.herokuapp.com/)
+  - Готовые аккаунты:
+    - 1
+      - login: bobo@gmail.com
+      - password: asdfasdf
+    - 2
+        - login: vashenko49@gmail.com
+        - password: gogo
 ### Работа в команде на степ-проекте:
   - Для разработки программного продукта используем методологию Scrum, на неделю построен спринт и розданы задания, которые каждый член команды должен выполнить. Ссылка на недельный спринт [PROJECT](https://github.com/vashenko49/step-project-notes/projects/1)
   - Создана вторая ветка `песочница (develop)`, которая первая принимает изменения участников
@@ -13,13 +22,19 @@
   - Обязательное код ревью друг друга
   - Использовать только оговоренные со всеми инструменты
 
-### Список использованных технологий
+### Список основных использованных технологий
   - gulp
   - express
   - nodemon
   - body-parser
   - mongodb
-  - Под конец проекта дополним
+  - pug
+  - webpack stream
+  - babel
+  - gulp-nodemon
+  - jquery
+  - gulp-sass
+  
   
 ## Задания для всей команды
  - Подробные задания каждого можно посмотреть на недельном спринте [PROJECT](https://github.com/vashenko49/step-project-notes/projects/1)
