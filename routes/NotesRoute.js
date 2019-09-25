@@ -2,6 +2,8 @@ const express = require('express');
 var ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const config = require("../config/db");
+const multer  = require('multer');
+const upload = multer({ dest: 'upload/' })
 
 module.exports.routeNotes = function (db) {
     router.get('/', function (req, res) {
@@ -24,13 +26,17 @@ module.exports.routeNotes = function (db) {
 
 
 module.exports.routeAPINotes = function (db) {
-    router.post('/', function (req, res) {
+    router.post('/', upload.single('uploadImg'), function (req, res) {
 
-        console.log(req.body);
+        const id_client = req.body.id_client,
+              text = req.body.text,
+              title = req.body.title,
+              attach = {};
 
-
-        const id_client = req.body.id_client;
-        const text = req.body.data.text;
+        if(req.file) {
+            attach.filename = req.file.filename,
+            attach.originalname = req.file.originalname
+        }
 
         if (id_client && text) {
             db.collection(config.collection.client)
@@ -40,12 +46,12 @@ module.exports.routeAPINotes = function (db) {
                     } else {
                         if (result) {
                             const insertObj = {
-                                id_client: req.body.id_client,
+                                id_client: id_client,
                                 type: 'UsuallCard',
                                 data: {
-                                    title: req.body.data.title || '',
-                                    is_img: req.body.data.is_img || false,
-                                    text: req.body.data.text
+                                    title,
+                                    text,
+                                    attach
                                 }
                             };
 

@@ -6,7 +6,7 @@ export class UsuallCard extends Card{
         event.preventDefault();
 
         let name = $('#FormControlFile').prop('files')[0].name;
-        let form_data = new FormData();
+        let form_data = new FormData($("#formID")[0]);
         let ext = name.split('.').pop().toLowerCase();
         if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) === -1)
         {
@@ -21,16 +21,16 @@ export class UsuallCard extends Card{
             {
                 alert("Image File Size is very big");
             }else {
-                form_data.append("file", $('#FormControlFile').prop('files')[0]);
 
                 if ($('#text').val()) {
-                    console.log($('#FormControlFile').prop('files')[0])
+                    form_data.append('id_client', Authorizatoin.GetIdClient())
                     $.ajax({
                         type: 'POST',
                         url: '/api/notes',
-                        data: $('#FormControlFile').prop('files')[0],
+                        data: form_data,
+                        cache: false,
                         processData: false,
-                        contentType: "multipart/form-data"
+                        contentType: false
                     })
                         .done(function(res) {
                             window.location = '/';
