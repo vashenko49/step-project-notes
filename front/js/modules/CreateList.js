@@ -48,15 +48,28 @@ export class CreateList {
             }
         });
 
-        $.ajax({
-            type: "POST",
-            url: `/api/list/`,
-            data: sendData
-        }).done(function(res) {
-            window.location = '/';
-        }).fail(function(err) {
-            throw new Error(err);
-        })
+        if (sendData.data.check_box.length > 0 ) {
+
+            $.ajax({
+                type: "POST",
+                url: `/api/list/`,
+                data: sendData
+            }).done(function(res) {
+                window.location = '/';
+            }).fail(function(err) {
+                throw new Error(err);
+            })
+        } else {
+            $('input[name="itemList"').each(function(){
+                $(this)
+                .attr({
+                    'data-toggle':'popover',
+                    'data-placement':'bottom',
+                    'data-content':'must be required'
+                })
+                .popover('show');
+            });
+        }
 
     }
 }
