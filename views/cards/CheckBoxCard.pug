@@ -7,13 +7,13 @@
                 each card,index in element
                     div.form-check
                         if card.done==="false"
-                            input.form-check-input(id=index type='checkbox' name=index)
+                            input.form-check-input(id=index type='checkbox' name=index disabled)
                             label.form-check-label(for=index)=card.text
             each element in data
                 each card,index in element
                     div.form-check
                         if card.done==="true"
-                            input.form-check-input(id=index type='checkbox' name=index checked='')
+                            input.form-check-input(id=index type='checkbox' name=index checked='' disabled)
                             label.form-check-label(for=index)=card.text
     div.buttonCards.d-flex.flex-wrap.justify-content-end(id=id_card, class=typeCard)
         include buttonCards.pug

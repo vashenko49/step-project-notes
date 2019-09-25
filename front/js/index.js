@@ -13,7 +13,7 @@ $().ready(function () {
     let idClient;
     $("#home-nav-link").click(Services.homeNavLink);
     $("#createusual-card-nav-link").click(Services.createUsualCardNavLink);
-    $("#createcheckbox-card-nav-link").click(Services.createUsualCardNavLink);
+    $("#createcheckbox-card-nav-link").click(Services.createCheckBoxСardNavLink);
 
     authorization.CheckCookie('authorization')
         .then(function (res,rej) {
@@ -33,8 +33,12 @@ $().ready(function () {
 
 
     $(document).on('click',".UsuallCard .more-information", UsuallCard.MoreUsualCard);
+    $(document).on('click',"#btnAddNote", UsuallCard.createUsualNote);
     $(document).on('click',"#btnDetailViewChange", UsuallCard.ChangeUsualCard);
     $(document).on('click',"#btnDetailViewDelete", UsuallCard.RemoveUsualCard);
     //
     $(document).on('click',".CheckBoxCard .more-information", CheckBoxCard.MoreCheckBoxCard);
+    $(document).on('click',"#btnDetailRemoveList", CheckBoxCard.RemoveCheckBoxCard);
+    $(document).on('click',"#btnDetailChangeList", CheckBoxCard.ChangeCheckBoxCard);
+    $(document).on('click',"#submitBtnDetailChangeList", CheckBoxCard.SubmitChangeCheckBoxCard);
 });

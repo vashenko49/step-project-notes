@@ -9,7 +9,8 @@ export class CreateList {
         currentField = $(this).parents('.dynamic-form-input'),
         newField = $(currentField.clone()).appendTo(dynamicForm);
 
-        newField.find('input').val('');
+        newField.find('input[type="text"').val('');
+        newField.find('input[type="checkbox"') ? newField.find('input[type="checkbox"').prop('checked', false) : null;
         newField.find('.btn-add')
             .attr("id", 'removeItemList')
             .removeClass('btn-add').addClass('btn-remove')
