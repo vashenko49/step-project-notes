@@ -4,23 +4,33 @@ import {Authorizatoin} from "./Authorizatoin";
 export class UsuallCard extends Card{
     static createUsualNote(event) {
         event.preventDefault();
-        $.post({
-            url: '/api/notes',
-            data: {
-                id_client: Authorizatoin.GetIdClient(),
-                data: {
-                    title: $('#title').val(),
-                    text: $('#text').val()
-                }
-            }
-        })
-            .done(function(res) {
-            window.location = '/';
-        })
-            .fail(function(err) {
-            throw new Error(err);
-        })
 
+        if ($('#text').val()) {
+            $.post({
+                url: '/api/notes',
+                data: {
+                    id_client: Authorizatoin.GetIdClient(),
+                    data: {
+                        title: $('#title').val(),
+                        text: $('#text').val()
+                    }
+                }
+            })
+                .done(function(res) {
+                    window.location = '/';
+                })
+                .fail(function(err) {
+                    throw new Error(err);
+                })
+        } else {
+            $('#text')
+                    .attr({
+                        'data-toggle':'popover',
+                        'data-placement':'top',
+                        'data-content':'must be required'
+                    })
+                    .popover('show');
+        }
     }
 
     static RemoveUsualCard(event){
@@ -56,22 +66,32 @@ export class UsuallCard extends Card{
     static SubmitChangeUsualCard(event) {
         event.preventDefault();
 
-        $.ajax({
-            type: 'PUT',
-            url: '/api/notes/' + window.location.pathname.split('/')[2],
-            data: {
-                id_client: window.location.pathname.split('/')[2],
+        if ($('#text').val()) {
+            $.ajax({
+                type: 'PUT',
+                url: '/api/notes/' + window.location.pathname.split('/')[2],
                 data: {
-                    title: $('#title').val(),
-                    text: $('#text').val()
+                    id_client: window.location.pathname.split('/')[2],
+                    data: {
+                        title: $('#title').val(),
+                        text: $('#text').val()
+                    }
                 }
-            }
-        })
-            .done(function(res){
-            window.location = '/';
-        })
-            .fail(function(err) {
-            throw new Error(err);
-        })
+            })
+                .done(function(res){
+                    window.location = '/';
+                })
+                .fail(function(err) {
+                    throw new Error(err);
+                })
+        } else {
+            $('#text')
+                .attr({
+                    'data-toggle':'popover',
+                    'data-placement':'top',
+                    'data-content':'must be required'
+                })
+                .popover('show');
+        }
     }
 }
