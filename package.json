@@ -4,7 +4,8 @@
   "description": "Создать веб-приложение TO-DO лист (аналог функционала `Заметки` из [Google Keep](https://keep.google.com/)) и разместить его в интернете.",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp"
+    "dev": "gulp",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "express": "^4.17.1",
+    "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.0",
     "gulp-clean-css": "^4.2.0",
@@ -34,6 +36,7 @@
     "gulp-nodemon": "^2.4.2",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
     "jquery": "^3.4.1",
     "mongodb": "^3.3.2",
     "node-sass": "^4.12.0",

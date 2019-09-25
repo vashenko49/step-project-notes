@@ -9,6 +9,8 @@ const gulpImageMin = require('gulp-imagemin');
 const nodemon = require('gulp-nodemon');
 const cssmini = require('gulp-minify-css');
 const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+
 let isDevelopment = true;
 
 let webPackConfig = {
@@ -36,6 +38,7 @@ gulp.task('client-script',function () {
 gulp.task('libs',function () {
     return gulp.src(['node_modules/jquery/dist/jquery.min.js', 'node_modules/popper.js/dist/umd/popper.min.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js'])
         .pipe(concat('libs.js'))
+        .pipe(uglify())
         .pipe(gulp.dest('storage/'));
 });
 
@@ -59,6 +62,11 @@ gulp.task('sass',function () {
         .pipe(cssmini({keepSpecialComments : 0}))
         .pipe(gulpRename('styles.min.css'))
         .pipe(gulp.dest('storage'))
+});
+
+gulp.task('fonts', function() {
+  return gulp.src('node_modules/font-awesome/fonts/*')
+    .pipe(gulp.dest('storage/fonts'))
 });
 
 gulp.task('img',function () {
@@ -87,4 +95,4 @@ gulp.task('watcher', function () {
     gulp.watch('front/**/*.js',gulp.series('client-script'))
 });
 
-gulp.task('default',gulp.parallel(['libs','client-script', 'sass', 'img', "watcher"],'nodemon'));
+gulp.task('default',gulp.parallel(['libs','client-script', 'sass', 'fonts', 'img', "watcher"],'nodemon'));

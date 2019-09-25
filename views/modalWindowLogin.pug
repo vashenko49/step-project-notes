@@ -1,0 +1,16 @@
+#login.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true' data-backdrop="false")
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Login
+      .modal-body
+        form#Login-form
+          .form-group
+            label(for='InputEmail') Email address
+            input#InputEmail.form-control(type='email' aria-describedby='emailHelp' placeholder='Enter email' required='')
+          .form-group
+            label(for='InputPassword') Password
+            input#InputPassword.form-control(type='password' placeholder='Password' required='')
+          .modal-footer
+            button.btn.btn-primary(type='submit') Login
+        button#createAccount.btn.btn-primary.text-center(type="button") Create Account

@@ -1,10 +1,13 @@
-@import "variables";
-@import "../../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css";
+@import "../../node_modules/bootstrap/scss/bootstrap-reboot";
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-button:active, button:focus {
-  outline: none;
-}
-button::-moz-focus-inner {
-  border: 0;
-}
+
+// Font Awesome
+@import "../../node_modules/font-awesome/scss/variables.scss";
+@import "../../node_modules/font-awesome/scss/mixins.scss";
+@import "../../node_modules/font-awesome/scss/path.scss";
+@import "../../node_modules/font-awesome/scss/core.scss";
+@import "../../node_modules/font-awesome/scss/icons.scss";
+
+
 @import "header";
+@import "addList";

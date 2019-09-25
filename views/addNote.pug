@@ -1,0 +1,15 @@
+html
+    include includes/head.pug
+body
+    include modalWindowLogin.pug
+    include includes/header.pug
+    h1.text-center.font-weight-normal Add new notes
+    form.px-5
+      .form-group
+        label(for='title') Name of note
+        input#title.form-control(type='text' aria-describedby='title')
+      .form-group
+        label(for='text') Text of note
+        textarea#text.form-control(rows='3')
+      button.btn.btn-primary(type='submit' id="btnAddNote") Submit
+    include includes/footer.pug

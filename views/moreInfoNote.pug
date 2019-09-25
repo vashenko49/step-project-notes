@@ -1,0 +1,15 @@
+html
+    include includes/head.pug
+body
+    include includes/header.pug
+    h1.text-center.font-weight-normal
+    form.px-5
+      .form-group
+        label(for='title') Name of note
+        input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note' value=title disabled)
+      .form-group
+        label(for='text') Text of note
+        textarea#text.form-control(rows='3' disabled)=text
+      button.btn.btn-warning.mr-2(type='submit' id="btnDetailViewChange") Change note
+      button.btn.btn-danger(id="btnDetailViewDelete") Delete note
+    include includes/footer.pug
