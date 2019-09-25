@@ -10,7 +10,7 @@ export class Authorizatoin {
                    end=cookie.length;
                }
                let id = cookie.substring(start, end);
-               document.cookie = `authorization=${id}; max-age=3599`;
+               // document.cookie = `authorization=${id}; max-age=3599`;
                resolve(decodeURIComponent(id));
            }else {
                //показываем модалку для входа
@@ -26,7 +26,7 @@ export class Authorizatoin {
                         data:dataClient,
                     }).done(function (res) {
                         if (res!=="error"){
-                            document.cookie = `authorization=${ encodeURIComponent(res)}; max-age=3598`;
+                            document.cookie = `authorization=${ encodeURIComponent(res)}; max-age=3598; path=/`;
                             window.location.reload();
                         }else {
                             $.ajax({
