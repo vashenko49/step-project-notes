@@ -24,7 +24,7 @@ export class CheckBoxCard  extends Card{
             $(this).removeAttr('disabled');
         });
 
-        $('input[name="itemList"').each(function(index) {
+        $('input[name="itemList"]').each(function(index) {
             const btnAdd = `<span class="input-group-append">
                                 <button class="btn btn-${index > 0 ? 'danger' : 'primary'} btn-add" type="button" id="${index > 0 ? 'removeItemList' : 'addNewItemList'}">
                                     <span class="fa fa-${index > 0 ? 'minus' : 'plus'}"></span>

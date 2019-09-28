@@ -26,15 +26,21 @@ module.exports = function (app, database) {
     app.use('/getcard',getcardsroute.getcards(database));
 
     app.use('/authorization',authorization.routeAuthorization(database));
-    app.use('/notes/authorization', authorization.routeAuthorization(database));
-    app.use('/api/notes/authorization', authorization.routeAuthorization(database));
+
     app.use('/notes', express.static('storage'));
+    app.use('/notes', express.static('upload'));
     app.use('/notes', notes.routeNotes(database));
+    app.use('/notes/authorization', authorization.routeAuthorization(database));
+
     app.use('/api/notes', notes.routeAPINotes(database));
-    app.use('/list/authorization', authorization.routeAuthorization(database));
-    app.use('/api/list/authorization', authorization.routeAuthorization(database));
+    app.use('/api/notes/authorization', authorization.routeAuthorization(database));
+
     app.use('/list', express.static('storage'));
+    app.use('/list', express.static('upload'));
     app.use('/list', list.routeList(database));
+    app.use('/list/authorization', authorization.routeAuthorization(database));
+
     app.use('/api/list', list.routeAPIList(database));
+    app.use('/api/list/authorization', authorization.routeAuthorization(database));
 
 };

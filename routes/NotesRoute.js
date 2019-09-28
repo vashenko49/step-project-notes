@@ -4,15 +4,15 @@ const router = express.Router();
 const config = require("../config/db");
 const multer  = require('multer');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'upload/')
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + '.' + file.originalname.split('.')[1])
     }
-  })
-const upload = multer({ storage: storage })
+  });
+const upload = multer({ storage: storage });
 
 module.exports.routeNotes = function (db) {
     router.get('/', function (req, res) {
@@ -25,7 +25,7 @@ module.exports.routeNotes = function (db) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render('moreInfoNote', {title: note.data.title, text: note.data.text})
+                    res.render('moreInfoNote', {title: note.data.title, text: note.data.text, imgSrc: note.data.attach.filename})
                 }
             });
     });
@@ -43,8 +43,8 @@ module.exports.routeAPINotes = function (db) {
               attach = {};
 
         if(req.file) {
-            attach.filename = req.file.filename,
-            attach.originalname = req.file.originalname
+            attach.filename = req.file.filename;
+            attach.originalname = req.file.originalname;
         }
 
         if (id_client && text) {

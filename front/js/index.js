@@ -37,6 +37,8 @@ $().ready(function () {
     $(document).on('click',"#btnDetailViewChange", UsuallCard.ChangeUsualCard);
     $(document).on('click',"#btnDetailViewSubmitChange", UsuallCard.SubmitChangeUsualCard);
     $(document).on('click',"#btnDetailViewDelete", UsuallCard.RemoveUsualCard);
+    $(document).on('click',"#removeImg", UsuallCard.RemoveImg);
+    
     //
     $(document).on('click',".CheckBoxCard .more-information", CheckBoxCard.MoreCheckBoxCard);
     $(document).on('click',"#btnDetailRemoveList", CheckBoxCard.RemoveCheckBoxCard);

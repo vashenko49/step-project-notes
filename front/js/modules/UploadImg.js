@@ -15,7 +15,7 @@ export class UploadImg {
                 oFReader.readAsDataURL($(id).prop('files')[0]);
                 let f = $(id).prop('files')[0];
                 let fsize = f.size||f.fileSize;
-                if (fsize > 2) {
+                if (fsize > 2000000) {
                     return {
                         status: false,
                         msg: 'Image File Size is very big'

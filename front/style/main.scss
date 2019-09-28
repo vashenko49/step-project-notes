@@ -8,6 +8,12 @@
 @import "../../node_modules/font-awesome/scss/core.scss";
 @import "../../node_modules/font-awesome/scss/icons.scss";
 
-
+.closeImg{
+  top:15px;
+  right:15px;
+}
+.visibleBtnImg, .visibleUploadImg,.imgRemove{
+  display: none;
+}
 @import "header";
 @import "addList";

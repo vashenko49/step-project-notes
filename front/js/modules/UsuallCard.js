@@ -20,7 +20,7 @@ export class UsuallCard extends Card{
         } else {
 
             if ($('#text').val()) {
-                form_data.append('id_client', Authorizatoin.GetIdClient())
+                form_data.append('id_client', Authorizatoin.GetIdClient());
                 $.ajax({
                     type: 'POST',
                     url: '/api/notes',
@@ -47,6 +47,10 @@ export class UsuallCard extends Card{
         }
     }
 
+    static RemoveImg(){
+        $(".visibleUploadImg").toggleClass('visibleUploadImg');
+        $('.imgCard').toggleClass('imgRemove');
+    }
 
     static RemoveUsualCard(event){
         event.preventDefault();
@@ -68,7 +72,7 @@ export class UsuallCard extends Card{
 
     static ChangeUsualCard(event){
         event.preventDefault();
-
+        $('.visibleBtnImg').toggleClass('visibleBtnImg');
         $(event.target)
             .toggleClass('btn-warning')
             .toggleClass('btn-primary')

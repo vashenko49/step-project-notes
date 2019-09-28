@@ -2,5 +2,7 @@
   .card-body
     h4.card-title=title
     p.card-text=text
+    if img == true
+        p.card-subtitle.mb-2.text-muted Has image
     div.buttonCards.d-flex.flex-wrap.justify-content-end(id=id_card, class=typeCard)
         include buttonCards.pug

@@ -2,7 +2,17 @@ const express = require('express');
 var ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const config = require("../config/db");
+const multer  = require('multer');
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'upload/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '.' + file.originalname.split('.')[1])
+    }
+});
+const upload = multer({ storage: storage });
 
 module.exports.routeList = function (db) {
     router.get('/', function (req, res) {
@@ -40,9 +50,22 @@ module.exports.routeList = function (db) {
 
 
 module.exports.routeAPIList = function (db) {
-    router.post('/', function (req, res) {
-        const id_client = req.body.id_client;
-        const lists = req.body.data.check_box;
+    router.post('/', upload.single('uploadImg'), function (req, res) {
+        const attach = {};
+
+        if(req.file) {
+            attach.filename = req.file.filename;
+            attach.originalname = req.file.originalname;
+        }
+
+        const {id_client, title = '' }= req.body;
+        const lists = req.body.itemList.map(function (element) {
+           return {
+               text: element,
+               done:false
+           }
+
+        });
 
         if (id_client && Array.isArray(lists) && lists.length > 0) {
             // проверка клиента в базе
@@ -56,18 +79,18 @@ module.exports.routeAPIList = function (db) {
                     // Клиент найден
                     if (result) {
                         const insertOb = {
-                            id_client: req.body.id_client,
+                            id_client,
                             type: 'CheckBoxCard',
                             data: {
-                                    title: req.body.data.title || '',
-                                    is_img: req.body.data.is_img || false,
-                                    check_box: req.body.data.check_box
+                                    title,
+                                    check_box: lists,
+                                    attach
                                 }
                             };
 
                         db.collection(config.collection.card).insertOne(insertOb, (err, result) => {
                             if (err){
-                                res.status(404)
+                                res.status(404);
                                 res.send('error select mongo');
                             } else {
                                 res.send(result.insertedId)
@@ -75,17 +98,17 @@ module.exports.routeAPIList = function (db) {
                         })
 
                     } else {
-                        res.status(404)
+                        res.status(404);
                         res.send("id_client not found");
                     }
                 }
             })
         } else {
             if (!id_client) {
-                res.status(404)
+                res.status(404);
                 res.send("id_client is required");
             } else {
-                res.status(404)
+                res.status(404);
                 res.send("check_box array length must more 0");
             }
         }
