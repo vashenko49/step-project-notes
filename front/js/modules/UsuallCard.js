@@ -1,59 +1,52 @@
 import {Card} from "./Card";
 import {Authorizatoin} from "./Authorizatoin";
+import {UploadImg} from "../modules/UploadImg";
 
 export class UsuallCard extends Card{
     static createUsualNote(event) {
         event.preventDefault();
 
-        let name = $('#FormControlFile').prop('files')[0].name;
         let form_data = new FormData($("#formID")[0]);
-        let ext = name.split('.').pop().toLowerCase();
-        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) === -1)
-        {
-            alert("Invalid Image File");
-        }else {
 
-            let oFReader = new FileReader();
-            oFReader.readAsDataURL($('#FormControlFile').prop('files')[0]);
-            let f = $('#FormControlFile').prop('files')[0];
-            let fsize = f.size||f.fileSize;
-            if(fsize > 2000000)
-            {
-                alert("Image File Size is very big");
-            }else {
-
-                if ($('#text').val()) {
-                    form_data.append('id_client', Authorizatoin.GetIdClient())
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/notes',
-                        data: form_data,
-                        cache: false,
-                        processData: false,
-                        contentType: false
+        const checkImg = UploadImg.upload('FormControlFile');
+        if (!checkImg.status) {
+            $('#FormControlFile')
+                    .attr({
+                        'data-toggle': 'popover',
+                        'data-placement': 'bottom',
+                        'data-content' :checkImg.msg
                     })
-                        .done(function(res) {
-                            window.location = '/';
-                        })
-                        .fail(function(err) {
-                            throw new Error(err);
-                        })
-                } else {
-                    $('#text')
-                            .attr({
-                                'data-toggle':'popover',
-                                'data-placement':'top',
-                                'data-content':'must be required'
-                            })
-                            .popover('show');
-                }
+                    .popover('show');
+        } else {
 
+            if ($('#text').val()) {
+                form_data.append('id_client', Authorizatoin.GetIdClient())
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/notes',
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                })
+                .done(function(res) {
+                    window.location = '/';
+                })
+                .fail(function(err) {
+                    throw new Error(err);
+                })
+            } else {
+                $('#text')
+                    .attr({
+                        'data-toggle':'popover',
+                        'data-placement':'bottom',
+                        'data-content':'must be required'
+                    })
+                    .popover('show');
             }
         }
-
-
-
     }
+
 
     static RemoveUsualCard(event){
         event.preventDefault();
@@ -110,7 +103,7 @@ export class UsuallCard extends Card{
             $('#text')
                 .attr({
                     'data-toggle':'popover',
-                    'data-placement':'top',
+                    'data-placement':'bottom',
                     'data-content':'must be required'
                 })
                 .popover('show');

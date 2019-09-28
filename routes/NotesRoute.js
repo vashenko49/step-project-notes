@@ -3,7 +3,16 @@ var ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const config = require("../config/db");
 const multer  = require('multer');
-const upload = multer({ dest: 'upload/' })
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'upload/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '.' + file.originalname.split('.')[1])
+    }
+  })
+const upload = multer({ storage: storage })
 
 module.exports.routeNotes = function (db) {
     router.get('/', function (req, res) {
