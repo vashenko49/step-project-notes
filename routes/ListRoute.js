@@ -22,22 +22,22 @@ module.exports.routeList = function (db) {
     router.get('/:id', function (req, res) {
         const id = req.params.id;
         if (!id) {
-            res.status(404)
+            res.status(404);
             res.send("id is required");
         } else {
 
             const filterDb = { _id: ObjectID(id) };
             db.collection(config.collection.card).findOne(filterDb, function (err, result) {
                 if (err) {
-                    res.status(404)
+                    res.status(404);
                     res.send('error select mongo');
 
                 } else {
                     if (result) {
-                        res.render('moreInfoList', {title: result.data.title, check_box: result.data.check_box});
+                        res.render('moreInfoList', {title: result.data.title, check_box: result.data.check_box, imgSrc: result.data.attach.filename});
 
                     } else {
-                        res.status(404)
+                        res.status(404);
                         res.send("id not found");
                     }
                 }
@@ -51,6 +51,7 @@ module.exports.routeList = function (db) {
 
 module.exports.routeAPIList = function (db) {
     router.post('/', upload.single('uploadImg'), function (req, res) {
+
         const attach = {};
 
         if(req.file) {
@@ -59,13 +60,17 @@ module.exports.routeAPIList = function (db) {
         }
 
         const {id_client, title = '' }= req.body;
-        const lists = req.body.itemList.map(function (element) {
+
+        const lists = Array.isArray(req.body.itemList)?req.body.itemList.map(function (element) {
            return {
                text: element,
                done:false
            }
 
-        });
+        }):[{
+            text: req.body.itemList,
+            done:false
+        }];
 
         if (id_client && Array.isArray(lists) && lists.length > 0) {
             // проверка клиента в базе
@@ -117,14 +122,14 @@ module.exports.routeAPIList = function (db) {
     router.put('/:id?', function(req, res){
         const id = req.params.id;
         if (!id) {
-            res.status(404)
+            res.status(404);
             res.send("id is required");
         } else {
 
             const filterDb = { _id: ObjectID(id) };
             db.collection(config.collection.card).findOne(filterDb, function (err, result) {
                 if (err) {
-                    res.status(404)
+                    res.status(404);
                     res.send('error select mongo');
                 } else {
                     
@@ -134,10 +139,10 @@ module.exports.routeAPIList = function (db) {
                                     "data.title": req.body.data.title,
                                     "data.check_box": req.body.data.check_box
                                 }
-                        }
+                        };
                         db.collection(config.collection.card).updateMany(filterDb, updData ,function(err, result) {
                             if (err) {
-                                res.status(404)
+                                res.status(404);
                                 res.send('error select mongo');
                             } else {
                                 
@@ -145,14 +150,14 @@ module.exports.routeAPIList = function (db) {
                                     res.sendStatus(200);
 
                                 } else {
-                                    res.status(404)
+                                    res.status(404);
                                     res.send("id not found");
                                 }
                             }
                         })
 
                     } else {
-                        res.status(404)
+                        res.status(404);
                         res.send("id not found");
                     }
                 }

@@ -19,7 +19,6 @@ export class CheckBoxCard  extends Card{
     }
     static ChangeCheckBoxCard(event){
         event.preventDefault();
-        
         $("input[disabled]").each(function(){
             $(this).removeAttr('disabled');
         });
@@ -48,12 +47,12 @@ export class CheckBoxCard  extends Card{
                 title: $('#title').val(),
                 check_box: []
             }
-        }
+        };
 
         $('.dynamic-form-input').each(function(index) {
-            if ( $(this).find('[name="itemList"').val().length > 0 ) {
+            if ( $(this).find('[name="itemList"]').val().length > 0 ) {
                 sendData.data.check_box.push({
-                    text: $(this).find('[name="itemList"').val(),
+                    text: $(this).find('[name="itemList"]').val(),
                     done: $(this).find('[type="checkbox"]').prop('checked') ? true : false
                 })
             }
@@ -70,7 +69,7 @@ export class CheckBoxCard  extends Card{
                 throw new Error(err);
             })
         } else {
-            $('input[name="itemList"').each(function(){
+            $('input[name="itemList"]').each(function(){
                 $(this)
                 .attr({
                     'data-toggle':'popover',

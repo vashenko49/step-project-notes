@@ -11,6 +11,13 @@ export class Services {
       })
   }
 
+  static popover(selector, message){
+      $(selector).attr({
+          'data-toggle': 'popover',
+          'data-placement': 'bottom',
+          'data-content' :message
+      }).popover('show');
+  }
 
   static homeNavLink(e){
       window.location.href = '/';

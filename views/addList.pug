@@ -4,7 +4,7 @@ body
     include modalWindowLogin.pug
     include includes/header.pug
     h1.text-center.font-weight-normal Add new list
-    form.px-5
+    form#formID.px-5
       .form-group
         label(for='title') Name of list
         input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note' name='title')

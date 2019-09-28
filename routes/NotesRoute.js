@@ -1,8 +1,9 @@
 const express = require('express');
-var ObjectID = require('mongodb').ObjectID;
+const ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const config = require("../config/db");
 const multer  = require('multer');
+const FileManagment = require('../FileSettings/FileManagement');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -19,7 +20,7 @@ module.exports.routeNotes = function (db) {
         res.render('addNote')
     });
 
-    router.get('/:id', function (req, res) {
+    router.get('/:id?', function (req, res) {
         db.collection(config.collection.card)
             .findOne({_id: ObjectID(req.params.id)}, function (err, note) {
                 if (err) {
@@ -91,7 +92,7 @@ module.exports.routeAPINotes = function (db) {
         }
     });
 
-    router.put('/:id?', function (req, res) {
+    router.put('/:id?',upload.single('uploadImg'), function (req, res) {
         const id = req.params.id;
         db.collection(config.collection.card)
             .findOne({ _id: ObjectID(id) }, function (err, result) {
@@ -100,14 +101,21 @@ module.exports.routeAPINotes = function (db) {
                 } else {
                     if (result) {
                         const updateObj = {
-                            $set: {
-                                "data.title": req.body.data.title,
-                                "data.text": req.body.data.text
-                            }
+                                "data.title": req.body.title,
+                                "data.text": req.body.text
                         };
 
+                        if(!req.hasOwnProperty('file') && req.body.removeImg==='true'){
+                            FileManagment.removeFileInUpload(result.data.attach.filename);
+                            updateObj['data.attach']={};
+                        }else if(req.hasOwnProperty('file')) {
+                            updateObj['data.attach.filename'] = req.file.filename;
+                            updateObj['data.attach.originalname'] = req.file.originalname;
+                        }
+
+
                         db.collection(config.collection.card)
-                            .updateOne({ _id: ObjectID(id) }, updateObj, (err, result) => {
+                            .updateOne({ _id: ObjectID(id) }, {$set:{...updateObj}}, (err, result) => {
                                 if (err){
                                     res.status(404);
                                     res.send('updating error in mongodb');
@@ -129,6 +137,7 @@ module.exports.routeAPINotes = function (db) {
             })
     });
 
+
     router.delete('/:id?', function (req, res) {
         const id = req.params.id;
         db.collection(config.collection.card)
@@ -138,6 +147,9 @@ module.exports.routeAPINotes = function (db) {
                 res.send('selecting error in mongodb');
             } else {
                 if (result) {
+                    if(result.data.attach.hasOwnProperty('filename')) {
+                        FileManagment.removeFileInUpload(result.data.attach.filename);
+                    }
                     db.collection(config.collection.card)
                         .deleteOne(result, function(err, result) {
                         if (err) {

@@ -6,13 +6,13 @@
             each element in data
                 each card,index in element
                     div.form-check
-                        if card.done==="false"
+                        if card.done==="false" || card.done===false
                             input.form-check-input(id=index type='checkbox' name=index disabled)
                             label.form-check-label(for=index)=card.text
             each element in data
                 each card,index in element
                     div.form-check
-                        if card.done==="true"
+                        if card.done==="true" || card.done===true
                             input.form-check-input(id=index type='checkbox' name=index checked='' disabled)
                             label.form-check-label(for=index)=card.text
     if img == true

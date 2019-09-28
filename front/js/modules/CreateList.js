@@ -1,5 +1,6 @@
 import { Authorizatoin } from './Authorizatoin';
 import {UploadImg} from "./UploadImg";
+import {Services} from "./Services";
 
 export class CreateList {
 
@@ -27,46 +28,33 @@ export class CreateList {
 
     static createListCard (event) {
         event.preventDefault();
-        const form = $(this).parent('form')[0];
-        let form_data = new FormData(form);
-        form_data.append('id_client', Authorizatoin.GetIdClient());
-
-
+        let form_data = new FormData($("#formID")[0]);
         const checkImg = UploadImg.upload('FormControlFile');
         if (!checkImg.status) {
-            $('#FormControlFile')
-                .attr({
-                    'data-toggle': 'popover',
-                    'data-placement': 'bottom',
-                    'data-content' :checkImg.msg
-                })
-                .popover('show');
+            Services.popover('#FormControlFile', checkImg.msg)
         } else {
-
-            if (form_data.get('itemList').length > 0) {
-
-                $.ajax({
-                    type: "POST",
-                    url: `/api/list/`,
-                    data: form_data,
-                    cache: false,
-                    processData: false,
-                    contentType: false
-                }).done(function (res) {
-                    window.location = '/';
-                }).fail(function (err) {
-                    throw new Error(err);
-                })
+            if (!checkImg.status) {
+                Services.popover('#FormControlFile', checkImg.msg)
             } else {
-                $('input[name="itemList"]').each(function () {
-                    $(this)
-                        .attr({
-                            'data-toggle': 'popover',
-                            'data-placement': 'bottom',
-                            'data-content': 'must be required'
-                        })
-                        .popover('show');
-                });
+                if (form_data.get('itemList').length > 0) {
+                    form_data.append('id_client', Authorizatoin.GetIdClient());
+                    $.ajax({
+                        type: "POST",
+                        url: `/api/list/`,
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false
+                    }).done(function (res) {
+                        window.location = '/';
+                    }).fail(function (err) {
+                        throw new Error(err);
+                    })
+                } else {
+                    $('input[name="itemList"]').each(function () {
+                        Services.popover(this, "must be required");
+                    });
+                }
             }
         }
 

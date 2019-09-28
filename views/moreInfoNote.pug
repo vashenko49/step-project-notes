@@ -3,16 +3,21 @@ html
 body
     include includes/header.pug
     h1.text-center.font-weight-normal
-    form.px-5
+    form#formID.px-5.pb-5
       .form-group
         label(for='title') Name of note
-        input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note' value=title disabled)
+        input#title.form-control(type='text' aria-describedby='title' placeholder='Name of note' value=title name="title" disabled)
       .form-group
         label(for='text') Text of note
-        textarea#text.form-control(rows='3' disabled)=text
-      include includes/imageDetail.pug
-      .visibleUploadImg
-        include inputUploadImg.pug
+        textarea#text.form-control(rows='3' disabled name="text")=text
+        if imgSrc
+            include includes/imageDetail.pug
+            .visibleUploadImg
+                include inputUploadImg.pug
+        else
+            .form-group
+              label(for='FormControlFile') Upload image
+              input#FormControlFile.d-block(type='file' name='uploadImg' accept='image/jpeg,image/png,image/gif' disabled)
       button.btn.btn-warning.mr-2(type='submit' id="btnDetailViewChange") Change note
       button.btn.btn-danger(id="btnDetailViewDelete") Delete note
     include includes/footer.pug

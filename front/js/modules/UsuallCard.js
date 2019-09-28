@@ -1,25 +1,19 @@
 import {Card} from "./Card";
 import {Authorizatoin} from "./Authorizatoin";
 import {UploadImg} from "../modules/UploadImg";
+import {Services} from "./Services";
 
 export class UsuallCard extends Card{
     static createUsualNote(event) {
         event.preventDefault();
-
         let form_data = new FormData($("#formID")[0]);
-
         const checkImg = UploadImg.upload('FormControlFile');
         if (!checkImg.status) {
-            $('#FormControlFile')
-                    .attr({
-                        'data-toggle': 'popover',
-                        'data-placement': 'bottom',
-                        'data-content' :checkImg.msg
-                    })
-                    .popover('show');
+            Services.popover('#FormControlFile', checkImg.msg)
         } else {
-
-            if ($('#text').val()) {
+            let text = $('#text');
+            let title = $('#title');
+            if (text.val() && title.val()) {
                 form_data.append('id_client', Authorizatoin.GetIdClient());
                 $.ajax({
                     type: 'POST',
@@ -28,21 +22,13 @@ export class UsuallCard extends Card{
                     cache: false,
                     processData: false,
                     contentType: false
-                })
-                .done(function(res) {
+                }).done(function(res) {
                     window.location = '/';
-                })
-                .fail(function(err) {
+                }).fail(function(err) {
                     throw new Error(err);
                 })
             } else {
-                $('#text')
-                    .attr({
-                        'data-toggle':'popover',
-                        'data-placement':'bottom',
-                        'data-content':'must be required'
-                    })
-                    .popover('show');
+                !text.val()?Services.popover(text, 'must be required'):Services.popover(title, 'must be required');
             }
         }
     }
@@ -57,11 +43,9 @@ export class UsuallCard extends Card{
         $.ajax({
             type: 'DELETE',
             url: '/api/notes/' + window.location.pathname.split('/')[2]
-        })
-            .done(function(res){
+        }).done(function(res){
             window.location = '/';
-        })
-            .fail(function(err) {
+        }).fail(function(err) {
             throw new Error(err);
         })
     }
@@ -84,33 +68,33 @@ export class UsuallCard extends Card{
 
     static SubmitChangeUsualCard(event) {
         event.preventDefault();
+        let form_data = new FormData($("#formID")[0]);
+        const checkImg = UploadImg.upload('FormControlFile');
+        if (!checkImg.status) {
+            Services.popover('#FormControlFile', checkImg.msg)
+        } else {
+            let text = $('#text');
+            let title = $('#title');
+            if (text.val() && title.val()) {
+                form_data.append('id_client', Authorizatoin.GetIdClient());
+                form_data.append('removeImg',($(".imgRemove").length !== 0));
 
-        if ($('#text').val()) {
-            $.ajax({
-                type: 'PUT',
-                url: '/api/notes/' + window.location.pathname.split('/')[2],
-                data: {
-                    id_client: window.location.pathname.split('/')[2],
-                    data: {
-                        title: $('#title').val(),
-                        text: $('#text').val()
-                    }
-                }
-            })
-                .done(function(res){
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/notes/' + window.location.pathname.split('/')[2],
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done(function(res){
                     window.location = '/';
-                })
-                .fail(function(err) {
+                }).fail(function(err) {
                     throw new Error(err);
                 })
-        } else {
-            $('#text')
-                .attr({
-                    'data-toggle':'popover',
-                    'data-placement':'bottom',
-                    'data-content':'must be required'
-                })
-                .popover('show');
+            } else {
+                !text.val()?Services.popover(text, 'must be required'):Services.popover(title, 'must be required');
+            }
         }
+
     }
 }
