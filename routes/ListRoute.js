@@ -3,6 +3,7 @@ var ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const config = require("../config/db");
 const multer  = require('multer');
+const FileManagment = require('../FileSettings/FileManagement');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -119,7 +120,57 @@ module.exports.routeAPIList = function (db) {
         }
     });
 
-    router.put('/:id?', function(req, res){
+    router.put('/:id?',upload.single('uploadImg'),  function(req, res){
+
+        console.log(req.body);
+        const id = req.params.id;
+        if (!id) {
+            res.status(404);
+            res.send("id is required");
+        } else {
+            const filterDb = { _id: ObjectID(id) };
+                db.collection(config.collection.card).findOne(filterDb, function (err, result) {
+                    if (err) {
+                        res.status(404);
+                        res.send('error select mongo');
+                    } else {
+                        if (result) {
+                            const updData = {
+                                "data.title": req.body.title,
+                                "data.check_box": JSON.parse(req.body.check_box)
+                            };
+
+                            if(!req.hasOwnProperty('file') && req.body.removeImg==='true'){
+                                FileManagment.removeFileInUpload(result.data.attach.filename);
+                                updData['data.attach']={};
+                            }else if(req.hasOwnProperty('file')) {
+                                updData['data.attach.filename'] = req.file.filename;
+                                updData['data.attach.originalname'] = req.file.originalname;
+                            }
+
+                            db.collection(config.collection.card).updateOne(filterDb, {$set:{...updData}} ,function(err, result) {
+                                if (err) {
+                                    res.status(404);
+                                    res.send('error select mongo');
+                                } else {
+
+                                    if (result) {
+                                        res.sendStatus(200);
+                                    } else {
+                                        res.status(404);
+                                        res.send("id not found");
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                })
+        }
+
+    });
+
+    router.delete('/:id?', function (req, res) {
         const id = req.params.id;
         if (!id) {
             res.status(404);
@@ -134,13 +185,10 @@ module.exports.routeAPIList = function (db) {
                 } else {
                     
                     if (result) {
-                        const updData =  {
-                            $set: {
-                                    "data.title": req.body.data.title,
-                                    "data.check_box": req.body.data.check_box
-                                }
-                        };
-                        db.collection(config.collection.card).updateMany(filterDb, updData ,function(err, result) {
+                        if(result.data.attach.hasOwnProperty('filename')) {
+                            FileManagment.removeFileInUpload(result.data.attach.filename);
+                        }
+                        db.collection(config.collection.card).remove(result, function(err, result) {
                             if (err) {
                                 res.status(404);
                                 res.send('error select mongo');
@@ -158,46 +206,6 @@ module.exports.routeAPIList = function (db) {
 
                     } else {
                         res.status(404);
-                        res.send("id not found");
-                    }
-                }
-            })
-        }
-    });
-
-    router.delete('/:id?', function (req, res) {
-        const id = req.params.id;
-        if (!id) {
-            res.status(404)
-            res.send("id is required");
-        } else {
-
-            const filterDb = { _id: ObjectID(id) };
-            db.collection(config.collection.card).findOne(filterDb, function (err, result) {
-                if (err) {
-                    res.status(404)
-                    res.send('error select mongo');
-                } else {
-                    
-                    if (result) {
-                        db.collection(config.collection.card).remove(result, function(err, result) {
-                            if (err) {
-                                res.status(404)
-                                res.send('error select mongo');
-                            } else {
-                                
-                                if (result) {
-                                    res.sendStatus(200);
-
-                                } else {
-                                    res.status(404)
-                                    res.send("id not found");
-                                }
-                            }
-                        })
-
-                    } else {
-                        res.status(404)
                         res.send("id not found");
                     }
                 }

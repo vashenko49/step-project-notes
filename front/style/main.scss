@@ -1,19 +1,12 @@
 @import "../../node_modules/bootstrap/scss/bootstrap-reboot";
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-// Font Awesome
 @import "../../node_modules/font-awesome/scss/variables.scss";
 @import "../../node_modules/font-awesome/scss/mixins.scss";
 @import "../../node_modules/font-awesome/scss/path.scss";
 @import "../../node_modules/font-awesome/scss/core.scss";
 @import "../../node_modules/font-awesome/scss/icons.scss";
 
-.closeImg{
-  top:15px;
-  right:15px;
-}
-.visibleBtnImg, .visibleUploadImg,.imgRemove{
-  display: none;
-}
+@import "visibleImg";
 @import "header";
 @import "addList";
