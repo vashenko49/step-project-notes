@@ -4,22 +4,30 @@ body
     include modalWindowLogin.pug
     include includes/header.pug
     h1.text-center.font-weight-normal Add new list
-    form.px-5
+    form#formID.px-5.pb-5
         .form-group
             label(for='title') Name of list
             input#title.form-control(type='text' placeholder='Name of note' name='title' value=title disabled)
         .form-group
-            label(for='text') Example list
+            label(for='text') To do
             each elem in check_box
-                if elem.done == 'false'
+                if elem.done == 'false' || elem.done===false
                     .input-group.dynamic-form-input
                         input.form-check-input(id=index type='checkbox' name=index checked=false disabled)
                         input.form-control(name='itemList' type='text' placeholder='Add new item' value=elem.text disabled)
             each elem in check_box
-                if elem.done == 'true'
+                if elem.done == 'true' || elem.done===true
                     .input-group.dynamic-form-input
                         input.form-check-input(id=index type='checkbox' name=index checked=true disabled)
                         input.form-control(name='itemList' type='text' placeholder='Add new item' value=elem.text disabled)
+        if imgSrc
+            include includes/imageDetail.pug
+            .visibleUploadImg
+                include inputUploadImg.pug
+        else
+            .form-group
+              label(for='FormControlFile') Upload image
+              input#FormControlFile.d-block(type='file' name='uploadImg' accept='image/jpeg,image/png,image/gif' disabled)
         button.btn.btn-warning.mr-2(type='submit' id="btnDetailChangeList") Change list
         button.btn.btn-danger(id="btnDetailRemoveList") Delete list
     include includes/footer.pug

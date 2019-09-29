@@ -1,4 +1,7 @@
 import {Card} from "./Card";
+import {UploadImg} from "./UploadImg";
+import {Services} from "./Services";
+import {Authorizatoin} from "./Authorizatoin";
 
 export class CheckBoxCard  extends Card{
     static RemoveCheckBoxCard(event){
@@ -19,12 +22,14 @@ export class CheckBoxCard  extends Card{
     }
     static ChangeCheckBoxCard(event){
         event.preventDefault();
-        
+
+        $('.visibleBtnImg').toggleClass('visibleBtnImg');
+
         $("input[disabled]").each(function(){
             $(this).removeAttr('disabled');
         });
 
-        $('input[name="itemList"').each(function(index) {
+        $('input[name="itemList"]').each(function(index) {
             const btnAdd = `<span class="input-group-append">
                                 <button class="btn btn-${index > 0 ? 'danger' : 'primary'} btn-add" type="button" id="${index > 0 ? 'removeItemList' : 'addNewItemList'}">
                                     <span class="fa fa-${index > 0 ? 'minus' : 'plus'}"></span>
@@ -42,43 +47,56 @@ export class CheckBoxCard  extends Card{
     static SubmitChangeCheckBoxCard(event) {
         event.preventDefault();
 
-        const sendData = {
-            id: window.location.pathname.split('/')[2],
-            data: {
-                title: $('#title').val(),
-                check_box: []
-            }
-        }
+        const check_box= [];
 
         $('.dynamic-form-input').each(function(index) {
-            if ( $(this).find('[name="itemList"').val().length > 0 ) {
-                sendData.data.check_box.push({
-                    text: $(this).find('[name="itemList"').val(),
+            if ( $(this).find('[name="itemList"]').val().length > 0 ) {
+                check_box.push({
+                    text: $(this).find('[name="itemList"]').val(),
                     done: $(this).find('[type="checkbox"]').prop('checked') ? true : false
                 })
             }
         });
 
-        if (sendData.data.check_box.length > 0 ) {
-            $.ajax({
-                type: 'PUT',
-                url: `/api/list/${window.location.pathname.split('/')[2]}`,
-                data: sendData
-            }).done(function(res){
-                window.location = '/';
-            }).fail(function(err) {
-                throw new Error(err);
-            })
+        let form_data = new FormData($("#formID")[0]);
+        const checkImg = UploadImg.upload('FormControlFile');
+        if (!checkImg.status) {
+            Services.popover('#FormControlFile', checkImg.msg)
         } else {
-            $('input[name="itemList"').each(function(){
-                $(this)
-                .attr({
-                    'data-toggle':'popover',
-                    'data-placement':'bottom',
-                    'data-content':'must be required'
+            form_data.append('id_client', Authorizatoin.GetIdClient());
+            form_data.append('removeImg',($(".imgRemove").length !== 0));
+            form_data.append('check_box',JSON.stringify(check_box));
+
+            if (check_box.length > 0 ) {
+                $.ajax({
+                    type: 'PUT',
+                    url: `/api/list/${window.location.pathname.split('/')[2]}`,
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done(function(res){
+                    window.location = '/';
+                }).fail(function(err) {
+                    throw new Error(err);
                 })
-                .popover('show');
-            });
+            } else {
+                $('input[name="itemList"]').each(function(){
+                    Services.popover(this, 'must be required' );
+                });
+            }
+
         }
+
+
+        // const sendData = {
+        //     id: window.location.pathname.split('/')[2],
+        //     data: {
+        //         title: $('#title').val(),
+        //         check_box: []
+        //     }
+        // };
+
+
     }
 }

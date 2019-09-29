@@ -4,12 +4,13 @@ body
     include modalWindowLogin.pug
     include includes/header.pug
     h1.text-center.font-weight-normal Add new notes
-    form.px-5
+    form#formID.px-5(enctype="multipart/form-data")
       .form-group
         label(for='title') Name of note
-        input#title.form-control(type='text' aria-describedby='title')
+        input#title.form-control(type='text' aria-describedby='title' name="title")
       .form-group
         label(for='text') Text of note
-        textarea#text.form-control(rows='3')
+        textarea#text.form-control(rows='3' name="text")
+      include inputUploadImg.pug
       button.btn.btn-primary(type='submit' id="btnAddNote") Submit
     include includes/footer.pug
