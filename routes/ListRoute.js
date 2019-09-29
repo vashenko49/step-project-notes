@@ -121,8 +121,6 @@ module.exports.routeAPIList = function (db) {
     });
 
     router.put('/:id?',upload.single('uploadImg'),  function(req, res){
-
-        console.log(req.body);
         const id = req.params.id;
         if (!id) {
             res.status(404);
@@ -188,7 +186,7 @@ module.exports.routeAPIList = function (db) {
                         if(result.data.attach.hasOwnProperty('filename')) {
                             FileManagment.removeFileInUpload(result.data.attach.filename);
                         }
-                        db.collection(config.collection.card).remove(result, function(err, result) {
+                        db.collection(config.collection.card).deleteMany(result, function(err, result) {
                             if (err) {
                                 res.status(404);
                                 res.send('error select mongo');
